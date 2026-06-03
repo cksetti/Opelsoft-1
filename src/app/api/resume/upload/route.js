@@ -21,7 +21,6 @@ export async function POST(request) {
 
     const arrayBuffer = await file.arrayBuffer();
     const buffer = Buffer.from(arrayBuffer);
-    const mimeType = file.type || 'application/pdf';
 
     let pdfText = '';
     try {
@@ -78,10 +77,10 @@ export async function POST(request) {
       }
     }
 
-    // 2. Try Anthropic Claude 3.5 PDF Document API second
+    // 2. Try Anthropic Claude 3.5 (text) second
     if (process.env.ANTHROPIC_API_KEY) {
       try {
-        console.log('Sending CV directly to Claude 3.5 for parsing...');
+        console.log('Sending extracted CV text to Claude 3.5 for parsing...');
         const response = await fetch('https://api.anthropic.com/v1/messages', {
           method: 'POST',
           headers: {
@@ -94,20 +93,7 @@ export async function POST(request) {
             max_tokens: 2000,
             messages: [{
               role: 'user',
-              content: [
-                {
-                  type: 'document',
-                  source: {
-                    type: 'base64',
-                    media_type: mimeType,
-                    data: base64Data
-                  }
-                },
-                {
-                  type: 'text',
-                  text: parsePrompt
-                }
-              ]
+              content: parsePrompt
             }]
           })
         });

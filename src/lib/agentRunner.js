@@ -366,7 +366,8 @@ Return ONLY valid JSON (no markdown, no explanation) with these exact fields:
       
       let skillMatches = 0;
       for (const skill of candidateSkills) {
-        const sName = skill.name.toLowerCase();
+        const sName = (skill && skill.name ? String(skill.name) : '').toLowerCase();
+        if (!sName) continue;
         if (job.description.toLowerCase().includes(sName) || jobTitleLower.includes(sName)) {
           score += 8;
           skillMatches++;
@@ -376,7 +377,7 @@ Return ONLY valid JSON (no markdown, no explanation) with these exact fields:
       const possibleTech = ['AWS', 'Docker', 'Kubernetes', 'TypeScript', 'GraphQL', 'Next.js', 'PostgreSQL', 'Java', 'Python'];
       for (const tech of possibleTech) {
         const tLower = tech.toLowerCase();
-        const hasCandidate = candidateSkills.some(s => s.name.toLowerCase().includes(tLower));
+        const hasCandidate = candidateSkills.some(s => s && s.name && String(s.name).toLowerCase().includes(tLower));
         const hasJob = job.description.toLowerCase().includes(tLower) || jobTitleLower.includes(tLower);
         
         if (hasJob && !hasCandidate) {
