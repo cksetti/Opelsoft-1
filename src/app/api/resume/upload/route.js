@@ -1,6 +1,6 @@
 import { getAuthUser } from '@/lib/auth';
 import { NextResponse } from 'next/server';
-import pdfParse from 'pdf-parse';
+import { PDFParse } from 'pdf-parse';
 
 export async function POST(request) {
   try {
@@ -27,7 +27,7 @@ export async function POST(request) {
 
     let pdfText = '';
     try {
-      const pdfData = await pdfParse(buffer);
+      const pdfData = await PDFParse(buffer);
       pdfText = pdfData.text;
     } catch (e) {
       console.warn('Failed to parse PDF text locally:', e);
