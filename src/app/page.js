@@ -11,21 +11,23 @@ export const revalidate = 30;
 
 async function getHomeData() {
   try {
-    const [jobs] = await pool.query(`
-      SELECT j.id, j.title, j.job_type, j.salary_package, j.city, j.country, j.created_at, e.company_name
-      FROM new_jobs j
-      LEFT JOIN new_employer_profiles e ON j.employer_id = e.user_id
-      WHERE j.status = 'active'
-      ORDER BY j.created_at DESC
-      LIMIT 6
-    `);
-    const [industries] = await pool.query(`
-      SELECT industry, COUNT(*) AS count FROM new_jobs WHERE status = 'active'
-      GROUP BY industry ORDER BY count DESC LIMIT 10
-    `);
-    const [[{ jobsCount }]] = await pool.query("SELECT COUNT(*) AS jobsCount FROM new_jobs WHERE status = 'active'");
-    const [[{ usersCount }]] = await pool.query("SELECT COUNT(*) AS usersCount FROM new_users WHERE role = 'candidate'");
-    const [[{ companiesCount }]] = await pool.query("SELECT COUNT(*) AS companiesCount FROM new_users WHERE role = 'employer'");
+    const [[jobs], [industries], [[{ jobsCount }]], [[{ usersCount }]], [[{ companiesCount }]]] = await Promise.all([
+      pool.query(`
+        SELECT j.id, j.title, j.job_type, j.salary_package, j.city, j.country, j.created_at, e.company_name
+        FROM new_jobs j
+        LEFT JOIN new_employer_profiles e ON j.employer_id = e.user_id
+        WHERE j.status = 'active'
+        ORDER BY j.created_at DESC
+        LIMIT 6
+      `),
+      pool.query(`
+        SELECT industry, COUNT(*) AS count FROM new_jobs WHERE status = 'active'
+        GROUP BY industry ORDER BY count DESC LIMIT 10
+      `),
+      pool.query("SELECT COUNT(*) AS jobsCount FROM new_jobs WHERE status = 'active'"),
+      pool.query("SELECT COUNT(*) AS usersCount FROM new_users WHERE role = 'candidate'"),
+      pool.query("SELECT COUNT(*) AS companiesCount FROM new_users WHERE role = 'employer'"),
+    ]);
     return { jobs, industries, stats: { jobsCount: jobsCount || 37, usersCount: usersCount || 6, companiesCount: companiesCount || 25 } };
   } catch {
     return {

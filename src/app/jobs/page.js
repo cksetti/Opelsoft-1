@@ -20,10 +20,14 @@ async function getFilteredJobs(searchParams) {
   query += ` ORDER BY j.created_at DESC`;
 
   try {
-    const [jobs] = await pool.query(query, params);
-    const [dbJobTypes] = await pool.query("SELECT DISTINCT job_type FROM new_jobs WHERE job_type != '' AND job_type IS NOT NULL");
-    const [dbIndustries] = await pool.query("SELECT DISTINCT industry FROM new_jobs WHERE industry != '' AND industry IS NOT NULL LIMIT 15");
-    const [dbLocations] = await pool.query("SELECT DISTINCT city FROM new_jobs WHERE city != '' AND city IS NOT NULL LIMIT 10");
+    // Run all queries in parallel — one round-trip of latency to the remote DB
+    // instead of four sequential ones (cuts /jobs render time ~4x).
+    const [[jobs], [dbJobTypes], [dbIndustries], [dbLocations]] = await Promise.all([
+      pool.query(query, params),
+      pool.query("SELECT DISTINCT job_type FROM new_jobs WHERE job_type != '' AND job_type IS NOT NULL"),
+      pool.query("SELECT DISTINCT industry FROM new_jobs WHERE industry != '' AND industry IS NOT NULL LIMIT 15"),
+      pool.query("SELECT DISTINCT city FROM new_jobs WHERE city != '' AND city IS NOT NULL LIMIT 10"),
+    ]);
     return { jobs, filterOptions: { jobTypes: dbJobTypes.map((r) => r.job_type), industries: dbIndustries.map((r) => r.industry), locations: dbLocations.map((r) => r.city) } };
   } catch (err) {
     console.error('Failed to query filtered jobs, using fallback:', err);
