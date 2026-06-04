@@ -1,4 +1,5 @@
 import "./globals.css";
+import "./interactive.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Inter, JetBrains_Mono } from "next/font/google";
