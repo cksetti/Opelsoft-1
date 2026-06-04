@@ -99,17 +99,14 @@ export default async function Home() {
                 OpelSoft connects talented people with great companies. Discover roles, build your profile, and apply in clicks — all in one place.
               </p>
 
-              <form action="/jobs" method="get" className="op-glass" style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', padding: '8px', borderRadius: '16px', border: '1px solid var(--border-color)', boxShadow: 'var(--shadow-md)', maxWidth: '560px', marginBottom: '18px' }}>
-                <input name="keyword" placeholder="Job title or keyword" className="form-control op-focus" style={{ flex: '1 1 200px', height: '48px', border: 'none', background: 'transparent' }} />
-                <input name="location" placeholder="Location" className="form-control op-focus" style={{ flex: '1 1 130px', height: '48px', border: 'none', background: 'transparent', borderLeft: '1px solid var(--border-color)' }} />
-                <button type="submit" className="op-btn op-grad-bg" style={{ height: '48px', padding: '0 26px', borderRadius: '12px', fontWeight: '700', fontSize: '0.95rem', color: '#fff', border: 'none', cursor: 'pointer' }}>Search</button>
-              </form>
-
-              <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', alignItems: 'center' }}>
-                <span style={{ fontSize: '0.78rem', color: 'var(--text-secondary)', fontWeight: '600' }}>Popular:</span>
-                {['AI Engineer', 'Robotics Engineer', 'ML Engineer', 'Data Scientist', 'Software Engineer'].map((r) => (
-                  <Link key={r} href={`/jobs?keyword=${encodeURIComponent(r)}`} className="op-btn" style={{ fontSize: '0.83rem', fontWeight: '600', color: 'var(--text-primary)', background: '#fff', border: '1px solid var(--border-color)', borderRadius: '30px', padding: '6px 14px', textDecoration: 'none' }}>{r}</Link>
-                ))}
+              <div style={{ display: 'flex', gap: '14px', flexWrap: 'wrap', alignItems: 'center' }}>
+                <Link href="/jobs" className="op-btn op-grad-bg" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '15px 32px', borderRadius: '14px', fontWeight: '700', fontSize: '1.02rem', color: '#fff', textDecoration: 'none', boxShadow: 'var(--shadow-md)' }}>
+                  Explore open roles
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" /></svg>
+                </Link>
+                <Link href="/register" className="op-btn" style={{ padding: '15px 32px', borderRadius: '14px', fontWeight: '700', fontSize: '1.02rem', border: '1px solid var(--border-color)', background: '#fff', color: '#09090b', textDecoration: 'none' }}>
+                  Create your profile
+                </Link>
               </div>
             </Reveal>
 
