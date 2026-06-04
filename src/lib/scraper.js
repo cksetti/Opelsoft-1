@@ -43,9 +43,31 @@ export async function closeScraperBrowser() {
   }
 }
 
-function companyNameFromUrl(url) {
-  const name = url.replace(/^https?:\/\/(?:www\.)?([^.]+)\..*$/i, '$1');
-  return name.charAt(0).toUpperCase() + name.slice(1);
+function capitalize(s) {
+  if (!s) return 'Company';
+  return s.charAt(0).toUpperCase() + s.slice(1);
+}
+
+// ATS hosts that put the company in the URL path (e.g. jobs.ashbyhq.com/Ashby)
+const ATS_PATH_HOSTS = ['ashbyhq.com', 'greenhouse.io', 'lever.co', 'workable.com', 'bamboohr.com', 'breezy.hr', 'recruitee.com', 'teamtailor.com', 'join.com'];
+// Generic careers subdomains to skip when deriving a name from the host
+const SKIP_SUBDOMAINS = new Set(['www', 'jobs', 'job', 'careers', 'career', 'boards', 'board', 'apply', 'hire', 'hiring', 'work', 'join', 'talent']);
+
+function companyNameFromUrl(rawUrl) {
+  try {
+    const u = new URL(/^https?:\/\//i.test(rawUrl) ? rawUrl : 'https://' + rawUrl);
+    const host = u.hostname.toLowerCase();
+    const pathSegs = u.pathname.split('/').filter(Boolean);
+    if (ATS_PATH_HOSTS.some((h) => host.endsWith(h)) && pathSegs.length > 0) {
+      return capitalize(decodeURIComponent(pathSegs[0]));
+    }
+    const labels = host.split('.');
+    let idx = 0;
+    while (idx < labels.length - 2 && SKIP_SUBDOMAINS.has(labels[idx])) idx++;
+    return capitalize(labels[idx] || labels[0]);
+  } catch {
+    return 'Company';
+  }
 }
 
 function toAbsoluteUrl(href, base) {
