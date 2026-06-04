@@ -87,7 +87,7 @@ export default function TalentStaffingPage() {
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(290px, 1fr))', gap: '24px' }}>
             {VALUES.map((c, i) => (
-              <div key={i} className="card-light" style={{ padding: '32px' }}>
+              <div key={i} className="card-light hover-lift" style={{ padding: '32px' }}>
                 <h3 style={{ fontSize: '1.3rem', fontWeight: '700', letterSpacing: '-0.02em', marginBottom: '10px' }}>{c.title}</h3>
                 <p style={{ color: 'var(--text-secondary)', fontSize: '0.98rem', lineHeight: '1.6' }}>{c.body}</p>
               </div>
@@ -105,7 +105,7 @@ export default function TalentStaffingPage() {
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '24px' }}>
             {SOLUTIONS.map((s, i) => (
-              <div key={i} className="card-light" style={{ padding: '30px' }}>
+              <div key={i} className="card-light hover-lift" style={{ padding: '30px' }}>
                 <div style={{ fontFamily: 'var(--font-mono-stack)', fontSize: '0.8rem', fontWeight: '700', color: 'var(--accent-color)', marginBottom: '12px' }}>
                   {String(i + 1).padStart(2, '0')}
                 </div>
@@ -126,7 +126,7 @@ export default function TalentStaffingPage() {
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '24px' }}>
             {MODELS.map((m, i) => (
-              <div key={i} className="card-light" style={{ padding: '28px' }}>
+              <div key={i} className="card-light hover-lift" style={{ padding: '28px' }}>
                 <h3 style={{ fontSize: '1.15rem', fontWeight: '700', letterSpacing: '-0.02em', marginBottom: '8px' }}>{m.name}</h3>
                 <p style={{ color: 'var(--text-secondary)', fontSize: '0.93rem', lineHeight: '1.55' }}>{m.body}</p>
               </div>
