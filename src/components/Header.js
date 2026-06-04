@@ -136,7 +136,7 @@ export default function Header() {
                 >
                   {hasDropdown ? (
                     <button
-                      className={`fs-nav-link${isActive ? ' active' : ''}`}
+                      className={`fs-nav-link op-underline${isActive ? ' active' : ''}`}
                       onClick={() => setOpenDropdown(isOpen ? null : item.name)}
                       aria-expanded={isOpen}
                     >
@@ -152,7 +152,7 @@ export default function Header() {
                       </svg>
                     </button>
                   ) : (
-                    <Link href={item.path} className={`fs-nav-link${isActive ? ' active' : ''}`}>
+                    <Link href={item.path} className={`fs-nav-link op-underline${isActive ? ' active' : ''}`}>
                       {item.name}
                     </Link>
                   )}
