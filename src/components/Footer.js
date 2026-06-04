@@ -13,7 +13,7 @@ export default function Footer() {
           {/* Brand col */}
           <div className="df-brand">
             <Link href="/" className="fs-logo" style={{ marginBottom: '16px', display: 'inline-flex', alignItems: 'center' }}>
-              <img src="/logo.png" alt="Opelsoft Logo" style={{ height: '38px', width: 'auto', display: 'block', filter: 'brightness(0) invert(1)' }} />
+              <img src="/logo.svg" alt="OpelSoft Logo" style={{ height: '40px', width: 'auto', display: 'block' }} />
             </Link>
             <p className="df-tagline">
               AI-powered recruitment automation for the modern candidate and employer.

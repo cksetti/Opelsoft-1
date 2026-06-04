@@ -105,7 +105,7 @@ export default function Header() {
         <div className="fs-header-inner">
           {/* Logo */}
           <Link href="/" className="fs-logo" style={{ display: 'flex', alignItems: 'center' }}>
-            <img src="/logo.png" alt="Opelsoft Logo" style={{ height: '50px', width: 'auto', display: 'block' }} />
+            <img src="/logo.svg" alt="OpelSoft Logo" style={{ height: '46px', width: 'auto', display: 'block' }} />
           </Link>
 
           {/* Desktop Nav — centered */}
