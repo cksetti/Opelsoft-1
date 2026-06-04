@@ -1,6 +1,7 @@
 import pool from './db';
 import { callLLMForJson } from './llm.js';
 import { scrapeCustomCareerPage, closeScraperBrowser } from './scraper.js';
+import { discoverCareerPages } from './discovery.js';
 
 // Extractor: Parse Greenhouse token
 function parseGreenhouseToken(url) {
@@ -55,15 +56,34 @@ export async function executeAgentPipeline(userId, addLog) {
   const targetLocations = typeof config.target_locations === 'string' ? JSON.parse(config.target_locations) : (config.target_locations || []);
   const minMatchScore = config.min_match_score || 70;
 
-  // 3. Fetch active career sources
-  const [sources] = await pool.query("SELECT * FROM new_ai_career_sources WHERE user_id = ? AND status != 'invalid'", [userId]);
-  
+  // 3. Fetch active career sources (user-supplied)
+  const [dbSources] = await pool.query("SELECT * FROM new_ai_career_sources WHERE user_id = ? AND status != 'invalid'", [userId]);
+  const sources = [...dbSources];
+  const knownUrls = new Set(sources.map((s) => (s.url || '').replace(/\/$/, '')));
+
+  // 3b. Autonomous discovery: let the agent search the web for relevant career pages
+  if (config.auto_discover) {
+    addLog('Auto-discovery enabled. Searching the web for relevant career pages...', 'info');
+    try {
+      const discovered = await discoverCareerPages({ preferredRoles, targetLocations, addLog });
+      for (const d of discovered) {
+        const key = d.url.replace(/\/$/, '');
+        if (knownUrls.has(key)) continue;
+        knownUrls.add(key);
+        // Ephemeral source (no DB id) — crawled this run, not persisted to the user's list
+        sources.push({ id: null, url: d.url, source_type: 'discovered', ephemeral: true });
+      }
+    } catch (discErr) {
+      addLog(`Auto-discovery failed: ${discErr.message}. Continuing with manual sources.`, 'warn');
+    }
+  }
+
   if (sources.length === 0) {
-    addLog('No target career sources found. Register career page URLs in the dashboard first.', 'warn');
+    addLog('No career sources to crawl. Enable auto-discovery or add career page URLs in the dashboard.', 'warn');
     return [];
   }
 
-  addLog(`Discovered ${sources.length} active career URLs to crawl.`, 'info');
+  addLog(`Prepared ${sources.length} career URLs to crawl.`, 'info');
   
   const discoveredJobsList = [];
 
@@ -129,13 +149,18 @@ export async function executeAgentPipeline(userId, addLog) {
       }
 
       // Update source status based on whether we actually reached/extracted anything
-      const reachedStatus = jobsScraped.length > 0 ? 'active' : 'unreachable';
-      await pool.query("UPDATE new_ai_career_sources SET status = ?, last_scraped_at = NOW() WHERE id = ?", [reachedStatus, source.id]);
+      // (only for persisted user sources; discovered ones are ephemeral)
+      if (source.id) {
+        const reachedStatus = jobsScraped.length > 0 ? 'active' : 'unreachable';
+        await pool.query("UPDATE new_ai_career_sources SET status = ?, last_scraped_at = NOW() WHERE id = ?", [reachedStatus, source.id]);
+      }
 
     } catch (err) {
       addLog(`Crawling failed for ${source.url}: ${err.message}. No jobs recorded for this source.`, 'warn');
       jobsScraped = [];
-      await pool.query("UPDATE new_ai_career_sources SET status = 'unreachable', last_scraped_at = NOW() WHERE id = ?", [source.id]);
+      if (source.id) {
+        await pool.query("UPDATE new_ai_career_sources SET status = 'unreachable', last_scraped_at = NOW() WHERE id = ?", [source.id]);
+      }
     }
 
     // Deduplication and database storage
