@@ -63,7 +63,7 @@ export default function TalentStaffingPage() {
                 <div style={{ position: 'absolute', inset: '-10% -6% -6% -10%', background: 'var(--op-grad)', filter: 'blur(60px)', opacity: 0.2, borderRadius: '40px' }} />
                 <div style={{ position: 'relative', borderRadius: '24px', overflow: 'hidden', boxShadow: '0 40px 80px -24px rgba(17,24,39,0.4)', border: '1px solid rgba(255,255,255,0.6)' }}>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src="/team.jpg" alt="A team collaborating" style={{ width: '100%', display: 'block' }} />
+                  <img src="/staffing.jpg" alt="A successful hire" style={{ width: '100%', display: 'block' }} />
                 </div>
                 <div className="op-glass op-float" style={{ position: 'absolute', top: '12%', left: '-6%', borderRadius: '14px', border: '1px solid var(--border-color)', boxShadow: 'var(--shadow-md)', padding: '12px 16px' }}>
                   <div style={{ fontSize: '0.72rem', color: 'var(--text-secondary)', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.06em' }}>Time to shortlist</div>
