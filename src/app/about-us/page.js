@@ -27,24 +27,48 @@ const VALUES = [
   { tint: '#10B981', emoji: '🌍', title: 'Global Reach', body: 'A worldwide network of talent and employers, connecting remote-ready professionals with ambitious teams.' },
 ];
 
-const FOCUS = ['Artificial Intelligence', 'Robotics', 'Machine Learning', 'Computer Vision', 'Automation', 'Data Science', 'Embedded Systems', 'MLOps'];
+const FOCUS_AREAS = [
+  { name: 'Artificial Intelligence', tint: '#4F46E5', icon: <><rect x="4" y="4" width="16" height="16" rx="2" /><rect x="9" y="9" width="6" height="6" /><line x1="9" y1="1" x2="9" y2="4" /><line x1="15" y1="1" x2="15" y2="4" /><line x1="9" y1="20" x2="9" y2="23" /><line x1="15" y1="20" x2="15" y2="23" /><line x1="20" y1="9" x2="23" y2="9" /><line x1="20" y1="14" x2="23" y2="14" /><line x1="1" y1="9" x2="4" y2="9" /><line x1="1" y1="14" x2="4" y2="14" /></> },
+  { name: 'Robotics', tint: '#7C3AED', icon: <><rect x="3" y="11" width="18" height="10" rx="2" /><circle cx="12" cy="5" r="2" /><path d="M12 7v4" /><line x1="8" y1="16" x2="8" y2="16" /><line x1="16" y1="16" x2="16" y2="16" /></> },
+  { name: 'Machine Learning', tint: '#0EA5E9', icon: <><circle cx="18" cy="5" r="3" /><circle cx="6" cy="12" r="3" /><circle cx="18" cy="19" r="3" /><line x1="8.59" y1="13.51" x2="15.42" y2="17.49" /><line x1="15.41" y1="6.51" x2="8.59" y2="10.49" /></> },
+  { name: 'Computer Vision', tint: '#10B981', icon: <><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" /><circle cx="12" cy="12" r="3" /></> },
+  { name: 'Automation', tint: '#F59E0B', icon: <path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z" /> },
+  { name: 'Data Science', tint: '#EF4444', icon: <><line x1="12" y1="20" x2="12" y2="10" /><line x1="18" y1="20" x2="18" y2="4" /><line x1="6" y1="20" x2="6" y2="16" /></> },
+  { name: 'Embedded Systems', tint: '#6366F1', icon: <><rect x="4" y="4" width="16" height="16" rx="2" /><rect x="9" y="9" width="6" height="6" /><line x1="9" y1="2" x2="9" y2="4" /><line x1="15" y1="2" x2="15" y2="4" /><line x1="2" y1="9" x2="4" y2="9" /><line x1="2" y1="15" x2="4" y2="15" /></> },
+  { name: 'MLOps', tint: '#14B8A6', icon: <><line x1="6" y1="3" x2="6" y2="15" /><circle cx="18" cy="6" r="3" /><circle cx="6" cy="18" r="3" /><path d="M18 9a9 9 0 0 1-9 9" /></> },
+];
 
 export default function AboutUsPage() {
   return (
     <div style={{ background: 'var(--bg-color)', color: 'var(--text-primary)' }}>
 
       {/* HERO */}
-      <section className="op-mesh" style={{ borderBottom: '1px solid var(--border-color)', padding: '88px 0 72px' }}>
-        <div className="container" style={{ maxWidth: '860px', textAlign: 'center' }}>
-          <Reveal>
-            <div style={{ fontSize: '0.78rem', textTransform: 'uppercase', letterSpacing: '0.22em', color: 'var(--op-indigo)', fontWeight: '700', marginBottom: '18px' }}>About OpelSoft</div>
-            <h1 style={{ fontSize: 'clamp(2.4rem, 5.5vw, 3.9rem)', fontWeight: '800', letterSpacing: '-0.045em', lineHeight: '1.05', marginBottom: '20px' }}>
-              Connecting <span className="op-grad-text">talent</span> with <span className="op-grad-text">opportunity</span>
-            </h1>
-            <p style={{ fontSize: 'clamp(1.05rem, 2vw, 1.25rem)', color: 'var(--text-secondary)', lineHeight: '1.6', maxWidth: '640px', margin: '0 auto' }}>
-              OpelSoft is a specialist talent and staffing platform. We help exceptional people find roles with the companies building artificial intelligence, robotics, and emerging technology — and help those companies hire the rare skills they need.
-            </p>
-          </Reveal>
+      <section className="op-mesh" style={{ borderBottom: '1px solid var(--border-color)', padding: '76px 0 64px', overflow: 'hidden' }}>
+        <div className="container">
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', gap: '52px', alignItems: 'center' }}>
+            <Reveal>
+              <div style={{ fontSize: '0.78rem', textTransform: 'uppercase', letterSpacing: '0.22em', color: 'var(--op-indigo)', fontWeight: '700', marginBottom: '18px' }}>About OpelSoft</div>
+              <h1 style={{ fontSize: 'clamp(2.4rem, 5.2vw, 3.8rem)', fontWeight: '800', letterSpacing: '-0.045em', lineHeight: '1.06', marginBottom: '20px' }}>
+                Connecting <span className="op-grad-text">talent</span> with <span className="op-grad-text">opportunity</span>
+              </h1>
+              <p style={{ fontSize: 'clamp(1.05rem, 2vw, 1.25rem)', color: 'var(--text-secondary)', lineHeight: '1.6', maxWidth: '520px', marginBottom: '28px' }}>
+                OpelSoft is a specialist talent and staffing platform. We help exceptional people find roles with the teams building advanced technology — and help those teams hire the rare skills they need.
+              </p>
+              <div style={{ display: 'flex', gap: '14px', flexWrap: 'wrap' }}>
+                <Link href="/jobs" className="op-btn op-grad-bg" style={{ padding: '13px 28px', borderRadius: '30px', fontWeight: '700', color: '#fff', textDecoration: 'none', boxShadow: 'var(--shadow-md)' }}>Explore roles</Link>
+                <Link href="/contact-us" className="op-btn" style={{ padding: '13px 28px', borderRadius: '30px', fontWeight: '700', border: '1px solid var(--border-color)', background: '#fff', color: '#09090b', textDecoration: 'none' }}>Get in touch</Link>
+              </div>
+            </Reveal>
+            <Reveal delay={2}>
+              <div style={{ position: 'relative', maxWidth: '520px', margin: '0 auto' }}>
+                <div style={{ position: 'absolute', inset: '-10% -6% -6% -10%', background: 'var(--op-grad)', filter: 'blur(60px)', opacity: 0.2, borderRadius: '40px' }} />
+                <div style={{ position: 'relative', borderRadius: '24px', overflow: 'hidden', boxShadow: '0 40px 80px -24px rgba(17,24,39,0.4)', border: '1px solid rgba(255,255,255,0.6)' }}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src="/team.jpg" alt="The OpelSoft team" style={{ width: '100%', display: 'block' }} />
+                </div>
+              </div>
+            </Reveal>
+          </div>
         </div>
       </section>
 
@@ -64,27 +88,36 @@ export default function AboutUsPage() {
 
       {/* MISSION */}
       <section className="section-light section-padding" style={{ background: '#fff', borderBottom: '1px solid var(--border-color)' }}>
+        <div className="container" style={{ maxWidth: '820px', textAlign: 'center' }}>
+          <Reveal>
+            <div style={{ fontSize: '0.78rem', textTransform: 'uppercase', letterSpacing: '0.2em', color: 'var(--op-indigo)', fontWeight: '700', marginBottom: '14px' }}>Our Mission</div>
+            <h2 style={{ fontSize: 'clamp(1.9rem, 4vw, 2.7rem)', fontWeight: '800', letterSpacing: '-0.03em', marginBottom: '20px' }}>Make great careers in advanced tech accessible</h2>
+            <p style={{ color: 'var(--text-secondary)', fontSize: '1.08rem', lineHeight: '1.8', marginBottom: '18px' }}>
+              The most important work of the next decade is being built by small, ambitious technical teams — yet the best people and the best opportunities rarely find each other easily.
+            </p>
+            <p style={{ color: 'var(--text-secondary)', fontSize: '1.08rem', lineHeight: '1.8' }}>
+              OpelSoft exists to close that gap, pairing deep specialism with a clean, human hiring experience. Whether you are taking the next step in your career or scaling a technical team, we make the process seamless.
+            </p>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* FOCUS AREAS */}
+      <section className="section-light section-padding">
         <div className="container">
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '56px', alignItems: 'center' }}>
-            <Reveal>
-              <div style={{ fontSize: '0.78rem', textTransform: 'uppercase', letterSpacing: '0.2em', color: 'var(--op-indigo)', fontWeight: '700', marginBottom: '14px' }}>Our Mission</div>
-              <h2 style={{ fontSize: 'clamp(1.9rem, 4vw, 2.7rem)', fontWeight: '800', letterSpacing: '-0.03em', marginBottom: '20px' }}>Make great careers in deep tech accessible</h2>
-              <p style={{ color: 'var(--text-secondary)', fontSize: '1.02rem', lineHeight: '1.8', marginBottom: '18px' }}>
-                The most important work of the next decade is being built by small, ambitious technical teams. Yet the best people and the best opportunities rarely find each other easily.
-              </p>
-              <p style={{ color: 'var(--text-secondary)', fontSize: '1.02rem', lineHeight: '1.8' }}>
-                OpelSoft exists to close that gap — pairing deep specialism in AI and robotics with a clean, human hiring experience. Whether you are taking the next step in your career or scaling a technical team, we make the process seamless.
-              </p>
-            </Reveal>
-            <Reveal delay={2}>
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
-                {FOCUS.map((f) => (
-                  <span key={f} className="hover-lift" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: '#fff', border: '1px solid var(--border-color)', borderRadius: '30px', padding: '10px 18px', fontSize: '0.92rem', fontWeight: '600', boxShadow: 'var(--shadow-sm)' }}>
-                    <span style={{ width: '7px', height: '7px', borderRadius: '50%', background: 'var(--op-grad)' }} /> {f}
-                  </span>
-                ))}
-              </div>
-            </Reveal>
+          <Reveal style={{ textAlign: 'center', marginBottom: '48px' }}>
+            <div style={{ fontSize: '0.78rem', textTransform: 'uppercase', letterSpacing: '0.2em', color: 'var(--op-indigo)', fontWeight: '700', marginBottom: '14px' }}>Areas We Specialise In</div>
+            <h2 style={{ fontSize: 'clamp(2rem, 4vw, 2.8rem)', fontWeight: '800', letterSpacing: '-0.03em' }}>The fields we know best</h2>
+          </Reveal>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '18px' }}>
+            {FOCUS_AREAS.map((f, i) => (
+              <Reveal key={f.name} delay={(i % 4) + 1}>
+                <div className="card-light hover-lift" style={{ padding: '22px 24px', display: 'flex', alignItems: 'center', gap: '14px', height: '100%' }}>
+                  <Icon tint={f.tint}>{f.icon}</Icon>
+                  <span style={{ fontSize: '1rem', fontWeight: '700', letterSpacing: '-0.01em' }}>{f.name}</span>
+                </div>
+              </Reveal>
+            ))}
           </div>
         </div>
       </section>
