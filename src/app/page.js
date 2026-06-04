@@ -1,7 +1,5 @@
 import pool from '@/lib/db';
 import Link from 'next/link';
-import HomeSlider from '@/components/HomeSlider';
-import CompoundingNetwork from '@/components/CompoundingNetwork';
 
 export const dynamic = 'force-dynamic';
 
@@ -34,22 +32,57 @@ async function getHomeData() {
   } catch {
     return {
       jobs: [
-        { id: 1, title: 'Senior AI/ML Engineer', job_type: 'Full-time', salary_package: '80000-120000', city: 'London', country: 'UK', company_name: 'DeepMind' },
-        { id: 2, title: 'Full-Stack Developer', job_type: 'Full-time', salary_package: '60000-90000', city: 'Remote', country: 'UK', company_name: 'Monzo' },
-        { id: 3, title: 'Data Scientist', job_type: 'Contract', salary_package: '70000-100000', city: 'Manchester', country: 'UK', company_name: 'AutoTrader' },
+        { id: 1, title: 'Senior Software Engineer', job_type: 'Full-time', salary_package: '80000-120000', city: 'London', country: 'UK', company_name: 'Monzo' },
+        { id: 2, title: 'Full-Stack Developer', job_type: 'Full-time', salary_package: '60000-90000', city: 'Remote', country: 'UK', company_name: 'Revolut' },
+        { id: 3, title: 'Project Manager', job_type: 'Contract', salary_package: '70000-100000', city: 'Manchester', country: 'UK', company_name: 'AutoTrader' },
       ],
       industries: [
         { industry: 'Technology', count: 24 },
-        { industry: 'AI & Machine Learning', count: 18 },
+        { industry: 'Engineering', count: 18 },
         { industry: 'Finance', count: 12 },
         { industry: 'Healthcare', count: 9 },
         { industry: 'Consulting', count: 8 },
-        { industry: 'E-Commerce', count: 6 },
+        { industry: 'Marketing', count: 6 },
       ],
       stats: { jobsCount: 37, usersCount: 6, companiesCount: 25 }
     };
   }
 }
+
+const VALUE_CARDS = [
+  {
+    title: 'Quality Opportunities',
+    body: 'Browse current roles from real, verified employers — from fast-growing startups to established enterprises, across every major industry.',
+    icon: <path d="M20 6 9 17l-5-5" />,
+  },
+  {
+    title: 'Apply in Seconds',
+    body: 'Build your profile once, add your CV, and apply to any role in a few clicks. No repetitive forms, no friction.',
+    icon: <path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z" />,
+  },
+  {
+    title: 'Stay in Control',
+    body: 'Track the status of every application — from submitted to shortlisted to hired — in one clean dashboard.',
+    icon: <path d="M22 12h-4l-3 9L9 3l-3 9H2" />,
+  },
+];
+
+const SERVICES = [
+  { name: 'Job Board', body: 'Thousands of live roles you can search, filter, and apply to in minutes.', href: '/jobs' },
+  { name: 'Talent & Staffing', body: 'Contract, direct-hire, and executive search across technology and every major function.', href: '/talent-staffing' },
+  { name: 'Employer Hiring Tools', body: 'Post roles, receive applications, and move candidates through your pipeline.', href: '/register' },
+  { name: 'Candidate Profiles', body: 'A complete profile and CV that you build once and reuse for every application.', href: '/register' },
+  { name: 'Application Tracking', body: 'A single dashboard to follow every application from submitted to offer.', href: '/dashboard/candidate' },
+  { name: 'Career Resources', body: 'Guidance and a growing library to help you take the next step in your career.', href: '/about-us' },
+];
+
+const FAQS = [
+  { q: 'Is OpelSoft free for candidates?', a: 'Yes. Creating a profile, browsing jobs, and applying to roles is completely free for job seekers.' },
+  { q: 'How do I apply for a job?', a: 'Create a candidate account, complete your profile and upload your CV, then click Apply on any listing and add a short cover note.' },
+  { q: 'How do employers post a job?', a: 'Register an employer account and use your dashboard to post a listing with the title, description, requirements, location, and salary.' },
+  { q: 'Can I track my applications?', a: 'Yes. Your candidate dashboard shows every job you have applied to along with its current hiring status.' },
+  { q: 'How do I build my profile?', a: 'Add your skills, education, and work history in the dashboard — or upload your CV to pre-fill the fields for you to review.' },
+];
 
 export default async function Home() {
   const { jobs, industries, stats } = await getHomeData();
@@ -57,38 +90,32 @@ export default async function Home() {
   return (
     <div className="home-page" style={{ background: 'var(--bg-color)', color: 'var(--text-primary)' }}>
 
-      {/* ── 1. HERO & PLAYGROUND ─────────────────────────── */}
-      <HomeSlider stats={stats} />
-
-      {/* ── 1b. SOCIAL-PROOF METRICS BAR + QUICK SEARCH ──── */}
-      <section style={{ background: '#09090b', color: '#ffffff', borderBottom: '1px solid var(--border-color)' }}>
-        <div className="container" style={{ padding: '52px 0' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: '28px', textAlign: 'center' }}>
-            {[
-              { value: `${stats.jobsCount}+`, label: 'Live roles indexed' },
-              { value: `${stats.companiesCount}+`, label: 'Hiring companies' },
-              { value: `${stats.usersCount}+`, label: 'Candidates onboard' },
-              { value: '6-axis', label: 'AI match scoring' },
-              { value: '4+ ATS', label: 'Engines crawled' },
-            ].map((m, i) => (
-              <div key={i}>
-                <div style={{ fontSize: 'clamp(1.9rem, 4vw, 2.7rem)', fontWeight: '800', letterSpacing: '-0.03em', fontFamily: 'var(--font-mono-stack)', background: 'linear-gradient(90deg,#fff,#9bb4ff)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-                  {m.value}
-                </div>
-                <div style={{ fontSize: '0.82rem', color: 'rgba(255,255,255,0.55)', marginTop: '6px', textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: '600' }}>
-                  {m.label}
-                </div>
-              </div>
-            ))}
+      {/* ── HERO ─────────────────────────────────────────── */}
+      <section style={{ background: '#ffffff', borderBottom: '1px solid var(--border-color)', padding: '96px 0 76px' }}>
+        <div className="container" style={{ maxWidth: '900px', textAlign: 'center' }}>
+          <div style={{ fontSize: '0.78rem', textTransform: 'uppercase', letterSpacing: '0.22em', color: 'var(--accent-color)', fontWeight: '700', marginBottom: '18px' }}>
+            OpelSoft Careers
           </div>
+          <h1 style={{ fontSize: 'clamp(2.5rem, 6vw, 4.1rem)', fontWeight: '800', letterSpacing: '-0.04em', lineHeight: '1.05', color: 'var(--text-primary)', marginBottom: '20px' }}>
+            Connecting talent with the right opportunities
+          </h1>
+          <p style={{ fontSize: 'clamp(1.05rem, 2vw, 1.25rem)', color: 'var(--text-secondary)', lineHeight: '1.6', maxWidth: '660px', margin: '0 auto 36px' }}>
+            OpelSoft brings candidates and employers together on one platform — discover roles, build your profile, apply in clicks, and track every application from first contact to offer.
+          </p>
 
-          <div style={{ marginTop: '40px', display: 'flex', gap: '10px', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center' }}>
-            <span style={{ fontSize: '0.72rem', color: 'rgba(255,255,255,0.45)', textTransform: 'uppercase', letterSpacing: '0.18em', fontWeight: '700', marginRight: '4px' }}>
-              Popular searches
-            </span>
-            {['React Developer', 'AI/ML Engineer', 'Product Manager', 'Data Scientist', 'DevOps', 'Remote'].map((role) => (
+          <form action="/jobs" method="get" style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', justifyContent: 'center', maxWidth: '680px', margin: '0 auto 20px' }}>
+            <input name="keyword" placeholder="Job title or keyword" className="form-control" style={{ flex: '1 1 240px', height: '52px', borderRadius: '10px' }} />
+            <input name="location" placeholder="Location" className="form-control" style={{ flex: '1 1 150px', height: '52px', borderRadius: '10px' }} />
+            <button type="submit" className="fs-btn-pill" style={{ height: '52px', padding: '0 30px', borderRadius: '10px', fontWeight: '600', fontSize: '0.98rem' }}>
+              Search Jobs
+            </button>
+          </form>
+
+          <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center' }}>
+            <span style={{ fontSize: '0.78rem', color: 'var(--text-secondary)', fontWeight: '600' }}>Popular:</span>
+            {['Software Engineer', 'Project Manager', 'Data Analyst', 'Designer', 'Remote'].map((role) => (
               <Link key={role} href={`/jobs?keyword=${encodeURIComponent(role)}`}
-                style={{ fontSize: '0.85rem', fontWeight: '600', color: '#fff', background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.14)', borderRadius: '30px', padding: '7px 16px', textDecoration: 'none', transition: 'all 0.2s' }}>
+                style={{ fontSize: '0.84rem', fontWeight: '600', color: 'var(--text-primary)', background: 'var(--bg-color)', border: '1px solid var(--border-color)', borderRadius: '30px', padding: '6px 14px', textDecoration: 'none' }}>
                 {role}
               </Link>
             ))}
@@ -96,352 +123,110 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* ── 1c. TRUSTED ATS / SOURCES BAR ────────────────── */}
-      <section style={{ background: '#ffffff', borderBottom: '1px solid var(--border-color)', padding: '34px 0' }}>
-        <div className="container" style={{ textAlign: 'center' }}>
-          <div style={{ fontSize: '0.76rem', textTransform: 'uppercase', letterSpacing: '0.2em', color: 'var(--text-secondary)', fontWeight: '700', marginBottom: '22px' }}>
-            Auto-discovers &amp; scrapes jobs from every major ATS
-          </div>
-          <div style={{ display: 'flex', gap: '34px', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center' }}>
-            {['Greenhouse', 'Lever', 'Ashby', 'Workday', 'Workable', 'Recruitee'].map((name) => (
-              <span key={name} style={{ fontSize: '1.35rem', fontWeight: '700', color: 'var(--text-secondary)', letterSpacing: '-0.02em', opacity: 0.75 }}>
-                {name}
-              </span>
+      {/* ── STATS BAR ────────────────────────────────────── */}
+      <section style={{ background: '#09090b', color: '#ffffff', borderBottom: '1px solid var(--border-color)' }}>
+        <div className="container" style={{ padding: '48px 0' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '24px', textAlign: 'center' }}>
+            {[
+              { value: `${stats.jobsCount}+`, label: 'Open roles' },
+              { value: `${stats.companiesCount}+`, label: 'Hiring companies' },
+              { value: `${stats.usersCount}+`, label: 'Candidates' },
+              { value: `${industries.length || 6}+`, label: 'Industries' },
+            ].map((m, i) => (
+              <div key={i}>
+                <div style={{ fontSize: 'clamp(1.9rem, 4vw, 2.6rem)', fontWeight: '800', letterSpacing: '-0.03em' }}>{m.value}</div>
+                <div style={{ fontSize: '0.82rem', color: 'rgba(255,255,255,0.55)', marginTop: '6px', textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: '600' }}>{m.label}</div>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ── 2. THE PIPELINE / STEPS ─────────────────────── */}
-      <section id="features" className="section-light section-padding bg-grid-light" style={{ position: 'relative', overflow: 'hidden', borderBottom: '1px solid var(--border-color)', background: '#ffffff', padding: '120px 0' }}>
-        <div className="ambient-glow ambient-emerald animate-drift-1" style={{ top: '10%', left: '5%', width: '450px', height: '450px', opacity: 0.2 }} />
-        <div className="ambient-glow ambient-purple animate-drift-2" style={{ bottom: '10%', right: '5%', width: '450px', height: '450px', opacity: 0.2 }} />
-        
-        <div className="container" style={{ position: 'relative', zIndex: 1 }}>
-          <div style={{ textAlign: 'center', marginBottom: '80px' }}>
-            <div style={{ fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.2em', color: 'var(--text-secondary)', fontWeight: '700', marginBottom: '16px', fontFamily: 'var(--font-mono-stack)' }}>
-              SYSTEM ARCHITECTURE
-            </div>
-            <h2 style={{ fontSize: 'clamp(2.5rem, 5vw, 3.8rem)', fontWeight: '800', letterSpacing: '-0.04em', color: 'var(--text-primary)', lineHeight: '1.1', marginBottom: '8px' }}>
-              Automate the hunt.
-            </h2>
-            <h2 style={{ fontSize: 'clamp(2.5rem, 5vw, 3.8rem)', fontWeight: '400', letterSpacing: '-0.02em', color: 'var(--text-primary)', lineHeight: '1.1', marginBottom: '32px' }} className="font-serif-italic">
-              Align the matches.
-            </h2>
-            <p style={{ color: 'var(--text-secondary)', fontSize: 'clamp(1.1rem, 2vw, 1.25rem)', maxWidth: '680px', margin: '0 auto', lineHeight: '1.6', fontWeight: '400' }}>
-              Opelsoft orchestrates complex data crawling, semantic search, and cognitive LLM reasoning pipelines to automate active job discovery.
-            </p>
+      {/* ── WHY OPELSOFT ─────────────────────────────────── */}
+      <section className="section-light section-padding" style={{ background: '#ffffff', borderBottom: '1px solid var(--border-color)' }}>
+        <div className="container">
+          <div style={{ textAlign: 'center', marginBottom: '56px' }}>
+            <div style={{ fontSize: '0.78rem', textTransform: 'uppercase', letterSpacing: '0.2em', color: 'var(--text-secondary)', fontWeight: '700', marginBottom: '14px' }}>Why OpelSoft</div>
+            <h2 style={{ fontSize: 'clamp(2rem, 4vw, 2.8rem)', fontWeight: '800', letterSpacing: '-0.03em', color: 'var(--text-primary)' }}>A simpler way to find work and hire</h2>
           </div>
-
-          <div className="process-grid">
-            
-            {/* Step 1 */}
-            <div className="process-card process-card-blue">
-              <div>
-                <div className="process-card-icon-wrapper">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-                    <circle cx="12" cy="7" r="4" />
-                    <line x1="19" y1="8" x2="23" y2="8" />
-                    <line x1="21" y1="6" x2="21" y2="10" />
-                  </svg>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(290px, 1fr))', gap: '24px' }}>
+            {VALUE_CARDS.map((c, i) => (
+              <div key={i} className="card-light" style={{ padding: '32px' }}>
+                <div style={{ width: '48px', height: '48px', borderRadius: '12px', background: 'rgba(30,80,255,0.08)', color: 'var(--accent-color)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '20px' }}>
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">{c.icon}</svg>
                 </div>
-                <div style={{ fontSize: '0.75rem', fontWeight: '700', color: '#1E50FF', letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: '12px', fontFamily: 'var(--font-mono-stack)' }}>
-                  01 &bull; INGESTION
-                </div>
-                <h3 style={{ fontSize: '1.8rem', fontWeight: '800', letterSpacing: '-0.03em', marginBottom: '12px', color: 'var(--text-primary)' }}>
-                  Candidate Blueprint
-                </h3>
-                <p style={{ color: 'var(--text-secondary)', fontSize: '0.98rem', lineHeight: '1.6', marginBottom: '16px' }}>
-                  Coordinate preferred titles, target locations, base compensation thresholds, and resume coordinates into a unified profile.
-                </p>
-
-                {/* Tech Specs Gist */}
-                <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap', marginBottom: '24px' }}>
-                  <span style={{ fontSize: '9px', fontWeight: '700', fontFamily: 'var(--font-mono-stack)', background: 'rgba(30, 80, 255, 0.05)', border: '1px solid rgba(30, 80, 255, 0.1)', color: '#1E50FF', padding: '3px 8px', borderRadius: '4px', textTransform: 'uppercase' }}>
-                    1536-dim vector
-                  </span>
-                  <span style={{ fontSize: '9px', fontWeight: '700', fontFamily: 'var(--font-mono-stack)', background: 'rgba(9, 9, 11, 0.04)', border: '1px solid rgba(9, 9, 11, 0.06)', color: 'var(--text-secondary)', padding: '3px 8px', borderRadius: '4px' }}>
-                    PDF/DOCX/TXT
-                  </span>
-                  <span style={{ fontSize: '9px', fontWeight: '700', fontFamily: 'var(--font-mono-stack)', background: 'rgba(9, 9, 11, 0.04)', border: '1px solid rgba(9, 9, 11, 0.06)', color: 'var(--text-secondary)', padding: '3px 8px', borderRadius: '4px' }}>
-                    &lt; 450ms Parse
-                  </span>
-                </div>
+                <h3 style={{ fontSize: '1.3rem', fontWeight: '700', letterSpacing: '-0.02em', color: 'var(--text-primary)', marginBottom: '10px' }}>{c.title}</h3>
+                <p style={{ color: 'var(--text-secondary)', fontSize: '0.98rem', lineHeight: '1.6' }}>{c.body}</p>
               </div>
-              <div>
-                <hr style={{ border: 0, borderTop: '1px solid rgba(9, 9, 11, 0.06)', margin: '0 0 24px 0' }} />
-                <ul className="process-bullet-list">
-                  <li className="process-bullet-item">
-                    <svg className="process-bullet-icon" style={{ color: '#1E50FF' }} width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                      <polyline points="20 6 9 17 4 12" />
-                    </svg>
-                    <span>Structured profile vector mapping</span>
-                  </li>
-                  <li className="process-bullet-item">
-                    <svg className="process-bullet-icon" style={{ color: '#1E50FF' }} width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                      <polyline points="20 6 9 17 4 12" />
-                    </svg>
-                    <span>Automatic background tokenization</span>
-                  </li>
-                  <li className="process-bullet-item">
-                    <svg className="process-bullet-icon" style={{ color: '#1E50FF' }} width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                      <polyline points="20 6 9 17 4 12" />
-                    </svg>
-                    <span>Customizable filter criteria parameters</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-
-            {/* Step 2 */}
-            <div className="process-card process-card-emerald">
-              <div>
-                <div className="process-card-icon-wrapper">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <rect x="2" y="2" width="20" height="8" rx="2" ry="2" />
-                    <rect x="2" y="14" width="20" height="8" rx="2" ry="2" />
-                    <line x1="6" y1="6" x2="6.01" y2="6" />
-                    <line x1="6" y1="18" x2="6.01" y2="18" />
-                    <path d="M20 10v4" />
-                  </svg>
-                </div>
-                <div style={{ fontSize: '0.75rem', fontWeight: '700', color: '#10b981', letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: '12px', fontFamily: 'var(--font-mono-stack)' }}>
-                  02 &bull; TELEMETRY
-                </div>
-                <h3 style={{ fontSize: '1.8rem', fontWeight: '800', letterSpacing: '-0.03em', marginBottom: '12px', color: 'var(--text-primary)' }}>
-                  Scraper Telemetry
-                </h3>
-                <p style={{ color: 'var(--text-secondary)', fontSize: '0.98rem', lineHeight: '1.6', marginBottom: '16px' }}>
-                  Deploy custom crawlers to scrape job descriptions directly from Greenhouse, Lever, Workday, and private corporate portals.
-                </p>
-
-                {/* Tech Specs Gist */}
-                <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap', marginBottom: '24px' }}>
-                  <span style={{ fontSize: '9px', fontWeight: '700', fontFamily: 'var(--font-mono-stack)', background: 'rgba(16, 185, 129, 0.05)', border: '1px solid rgba(16, 185, 129, 0.1)', color: '#10b981', padding: '3px 8px', borderRadius: '4px', textTransform: 'uppercase' }}>
-                    12,000+ jobs/day
-                  </span>
-                  <span style={{ fontSize: '9px', fontWeight: '700', fontFamily: 'var(--font-mono-stack)', background: 'rgba(9, 9, 11, 0.04)', border: '1px solid rgba(9, 9, 11, 0.06)', color: 'var(--text-secondary)', padding: '3px 8px', borderRadius: '4px' }}>
-                    Greenhouse / Lever API
-                  </span>
-                  <span style={{ fontSize: '9px', fontWeight: '700', fontFamily: 'var(--font-mono-stack)', background: 'rgba(9, 9, 11, 0.04)', border: '1px solid rgba(9, 9, 11, 0.06)', color: 'var(--text-secondary)', padding: '3px 8px', borderRadius: '4px' }}>
-                    Proxy Rotation
-                  </span>
-                </div>
-              </div>
-              <div>
-                <hr style={{ border: 0, borderTop: '1px solid rgba(9, 9, 11, 0.06)', margin: '0 0 24px 0' }} />
-                <ul className="process-bullet-list">
-                  <li className="process-bullet-item">
-                    <svg className="process-bullet-icon" style={{ color: '#10b981' }} width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                      <polyline points="20 6 9 17 4 12" />
-                    </svg>
-                    <span>Direct endpoint ATS crawling</span>
-                  </li>
-                  <li className="process-bullet-item">
-                    <svg className="process-bullet-icon" style={{ color: '#10b981' }} width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                      <polyline points="20 6 9 17 4 12" />
-                    </svg>
-                    <span>Structured metadata parser</span>
-                  </li>
-                  <li className="process-bullet-item">
-                    <svg className="process-bullet-icon" style={{ color: '#10b981' }} width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                      <polyline points="20 6 9 17 4 12" />
-                    </svg>
-                    <span>De-duplication pipeline indexing</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-
-            {/* Step 3 */}
-            <div className="process-card process-card-amber">
-              <div>
-                <div className="process-card-icon-wrapper">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z" />
-                    <circle cx="12" cy="12" r="5" />
-                    <line x1="12" y1="2" x2="12" y2="7" />
-                    <line x1="12" y1="17" x2="12" y2="22" />
-                    <line x1="2" y1="12" x2="7" y2="12" />
-                    <line x1="17" y1="12" x2="22" y2="12" />
-                  </svg>
-                </div>
-                <div style={{ fontSize: '0.75rem', fontWeight: '700', color: '#F59E0B', letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: '12px', fontFamily: 'var(--font-mono-stack)' }}>
-                  03 &bull; COGNITIVE SCORE
-                </div>
-                <h3 style={{ fontSize: '1.8rem', fontWeight: '800', letterSpacing: '-0.03em', marginBottom: '12px', color: 'var(--text-primary)' }}>
-                  Cognitive Relevance
-                </h3>
-                <p style={{ color: 'var(--text-secondary)', fontSize: '0.98rem', lineHeight: '1.6', marginBottom: '16px' }}>
-                  Run semantic LLM checks to extract fit percentage, isolate critical skill gaps, and flag qualification risk factors.
-                </p>
-
-                {/* Tech Specs Gist */}
-                <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap', marginBottom: '24px' }}>
-                  <span style={{ fontSize: '9px', fontWeight: '700', fontFamily: 'var(--font-mono-stack)', background: 'rgba(245, 158, 11, 0.05)', border: '1px solid rgba(245, 158, 11, 0.1)', color: '#F59E0B', padding: '3px 8px', borderRadius: '4px', textTransform: 'uppercase' }}>
-                    Groq Llama 3.3
-                  </span>
-                  <span style={{ fontSize: '9px', fontWeight: '700', fontFamily: 'var(--font-mono-stack)', background: 'rgba(9, 9, 11, 0.04)', border: '1px solid rgba(9, 9, 11, 0.06)', color: 'var(--text-secondary)', padding: '3px 8px', borderRadius: '4px' }}>
-                    12-point matrix
-                  </span>
-                  <span style={{ fontSize: '9px', fontWeight: '700', fontFamily: 'var(--font-mono-stack)', background: 'rgba(9, 9, 11, 0.04)', border: '1px solid rgba(9, 9, 11, 0.06)', color: 'var(--text-secondary)', padding: '3px 8px', borderRadius: '4px' }}>
-                    Anonymized Mode
-                  </span>
-                </div>
-              </div>
-              <div>
-                <hr style={{ border: 0, borderTop: '1px solid rgba(9, 9, 11, 0.06)', margin: '0 0 24px 0' }} />
-                <ul className="process-bullet-list">
-                  <li className="process-bullet-item">
-                    <svg className="process-bullet-icon" style={{ color: '#F59E0B' }} width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                      <polyline points="20 6 9 17 4 12" />
-                    </svg>
-                    <span>LLM semantic match calculations</span>
-                  </li>
-                  <li className="process-bullet-item">
-                    <svg className="process-bullet-icon" style={{ color: '#F59E0B' }} width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                      <polyline points="20 6 9 17 4 12" />
-                    </svg>
-                    <span>Automated skill gap identification</span>
-                  </li>
-                  <li className="process-bullet-item">
-                    <svg className="process-bullet-icon" style={{ color: '#F59E0B' }} width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                      <polyline points="20 6 9 17 4 12" />
-                    </svg>
-                    <span>Integrated alerts & logs dispatch</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-
+            ))}
           </div>
         </div>
       </section>
 
-      {/* ── 3. WHY THIS MATTERS NOW / SILOED VS UNIFIED ───── */}
-      <section id="why-now" className="section-light section-padding bg-grid-light" style={{ position: 'relative', overflow: 'hidden', borderBottom: '1px solid var(--border-color)' }}>
-        <div className="ambient-glow ambient-coral animate-drift-2" style={{ top: '10%', right: '5%', width: '450px', height: '450px', opacity: 0.4 }} />
-        <div className="ambient-glow ambient-blue animate-drift-1" style={{ bottom: '10%', left: '5%', width: '450px', height: '450px', opacity: 0.4 }} />
-        
+      {/* ── WHAT WE OFFER (services grid) ────────────────── */}
+      <section className="section-light section-padding">
         <div className="container">
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '60px', alignItems: 'center' }}>
-            
-            {/* Copy */}
-            <div style={{ textAlign: 'left' }}>
-              <div style={{ fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.2em', color: 'var(--text-secondary)', fontWeight: '600', marginBottom: '16px' }}>
-                THE CHALLENGE
-              </div>
-              <h2 style={{ fontSize: 'clamp(2.2rem, 4vw, 3.2rem)', fontWeight: '800', letterSpacing: '-0.04em', color: 'var(--text-primary)', lineHeight: '1.1', marginBottom: '24px' }}>
-                Job search is fragmented.<br />
-                <span style={{ fontWeight: '400' }} className="text-light-muted">Discovery shouldn&apos;t be.</span>
-              </h2>
-              <p style={{ color: 'var(--text-secondary)', fontSize: '1.15rem', lineHeight: '1.7', marginBottom: '20px', fontWeight: '400' }}>
-                Job discovery is currently broken. Opportunities are scattered across hundreds of proprietary career portals, ATS configurations, and outdated third-party job aggregators. Valuable listings vanish without notice, and candidate fit data is rarely considered.
-              </p>
-              <p style={{ color: 'var(--text-secondary)', fontSize: '1.15rem', lineHeight: '1.7', marginBottom: '32px', fontWeight: '400' }}>
-                Opelsoft solves this by creating a personal, autonomous pipeline. By continually indexing company pages and running LLM checks against your profile, the system structures the messy web of job listings into a unified dashboard.
-              </p>
-              <div style={{ borderLeft: '3px solid var(--accent-color)', paddingLeft: '20px', marginTop: '24px' }}>
-                <p style={{ fontStyle: 'italic', fontSize: '1.2rem', color: 'var(--text-primary)', fontWeight: '500', lineHeight: '1.6' }} className="font-serif-italic">
-                  &ldquo;Opelsoft shifts the dynamic from manual searching to continuous, automated opportunity indexing.&rdquo;
-                </p>
-              </div>
-            </div>
-
-            {/* Bento Grid: 6 Siloed cards representing the issue */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '20px' }}>
-              
-              <div className="card-light" style={{ padding: '24px', display: 'flex', flexDirection: 'column', justify: 'space-between', minHeight: '140px' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
-                  <span style={{ fontSize: '1.8rem' }}>Silo 01</span>
-                  <span style={{ fontSize: '0.7rem', textTransform: 'uppercase', color: '#ef4444', fontWeight: '600', letterSpacing: '0.05em', fontFamily: 'var(--font-mono-stack)' }}>Scattered</span>
-                </div>
-                <div>
-                  <h4 style={{ fontSize: '1.1rem', fontWeight: '600', color: 'var(--text-primary)', marginBottom: '4px' }}>Career Portals</h4>
-                  <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', lineHeight: '1.3' }}>Unindexed openings</p>
-                </div>
-              </div>
-
-              <div className="card-light" style={{ padding: '24px', display: 'flex', flexDirection: 'column', justify: 'space-between', minHeight: '140px' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
-                  <span style={{ fontSize: '1.8rem' }}>Silo 02</span>
-                  <span style={{ fontSize: '0.7rem', textTransform: 'uppercase', color: '#ef4444', fontWeight: '600', letterSpacing: '0.05em', fontFamily: 'var(--font-mono-stack)' }}>Stale</span>
-                </div>
-                <div>
-                  <h4 style={{ fontSize: '1.1rem', fontWeight: '600', color: 'var(--text-primary)', marginBottom: '4px' }}>Expired Listings</h4>
-                  <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', lineHeight: '1.3' }}>Ghost openings</p>
-                </div>
-              </div>
-
-              <div className="card-light" style={{ padding: '24px', display: 'flex', flexDirection: 'column', justify: 'space-between', minHeight: '140px' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
-                  <span style={{ fontSize: '1.8rem' }}>Silo 03</span>
-                  <span style={{ fontSize: '0.7rem', textTransform: 'uppercase', color: '#ef4444', fontWeight: '600', letterSpacing: '0.05em', fontFamily: 'var(--font-mono-stack)' }}>Mismatched</span>
-                </div>
-                <div>
-                  <h4 style={{ fontSize: '1.1rem', fontWeight: '600', color: 'var(--text-primary)', marginBottom: '4px' }}>Aggregators</h4>
-                  <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', lineHeight: '1.3' }}>Low relevancy scores</p>
-                </div>
-              </div>
-
-              <div className="card-light" style={{ padding: '24px', display: 'flex', flexDirection: 'column', justify: 'space-between', minHeight: '140px' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
-                  <span style={{ fontSize: '1.8rem' }}>Silo 04</span>
-                  <span style={{ fontSize: '0.7rem', textTransform: 'uppercase', color: '#ef4444', fontWeight: '600', letterSpacing: '0.05em', fontFamily: 'var(--font-mono-stack)' }}>Slow</span>
-                </div>
-                <div>
-                  <h4 style={{ fontSize: '1.1rem', fontWeight: '600', color: 'var(--text-primary)', marginBottom: '4px' }}>ATS Systems</h4>
-                  <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', lineHeight: '1.3' }}>Resume black holes</p>
-                </div>
-              </div>
-
-              <div className="card-light" style={{ padding: '24px', display: 'flex', flexDirection: 'column', justify: 'space-between', minHeight: '140px' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
-                  <span style={{ fontSize: '1.8rem' }}>Silo 05</span>
-                  <span style={{ fontSize: '0.7rem', textTransform: 'uppercase', color: '#ef4444', fontWeight: '600', letterSpacing: '0.05em', fontFamily: 'var(--font-mono-stack)' }}>Messy</span>
-                </div>
-                <div>
-                  <h4 style={{ fontSize: '1.1rem', fontWeight: '600', color: 'var(--text-primary)', marginBottom: '4px' }}>Profile Sync</h4>
-                  <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', lineHeight: '1.3' }}>Outdated credentials</p>
-                </div>
-              </div>
-
-              <div className="card-light" style={{ padding: '24px', display: 'flex', flexDirection: 'column', justify: 'space-between', minHeight: '140px' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
-                  <span style={{ fontSize: '1.8rem' }}>Silo 06</span>
-                  <span style={{ fontSize: '0.7rem', textTransform: 'uppercase', color: '#ef4444', fontWeight: '600', letterSpacing: '0.05em', fontFamily: 'var(--font-mono-stack)' }}>Untracked</span>
-                </div>
-                <div>
-                  <h4 style={{ fontSize: '1.1rem', fontWeight: '600', color: 'var(--text-primary)', marginBottom: '4px' }}>Applications</h4>
-                  <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', lineHeight: '1.3' }}>No status follow-up</p>
-                </div>
-              </div>
-
-            </div>
-
+          <div style={{ textAlign: 'center', marginBottom: '56px' }}>
+            <div style={{ fontSize: '0.78rem', textTransform: 'uppercase', letterSpacing: '0.2em', color: 'var(--text-secondary)', fontWeight: '700', marginBottom: '14px' }}>What We Offer</div>
+            <h2 style={{ fontSize: 'clamp(2rem, 4vw, 2.8rem)', fontWeight: '800', letterSpacing: '-0.03em', color: 'var(--text-primary)' }}>One platform for talent and hiring</h2>
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '24px' }}>
+            {SERVICES.map((s, i) => (
+              <Link key={i} href={s.href} className="card-light" style={{ padding: '30px', display: 'block', textDecoration: 'none' }}>
+                <div style={{ fontFamily: 'var(--font-mono-stack)', fontSize: '0.8rem', fontWeight: '700', color: 'var(--accent-color)', marginBottom: '12px' }}>{String(i + 1).padStart(2, '0')}</div>
+                <h3 style={{ fontSize: '1.25rem', fontWeight: '700', letterSpacing: '-0.02em', color: 'var(--text-primary)', marginBottom: '10px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  {s.name}
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--accent-color)" strokeWidth="2.5"><line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" /></svg>
+                </h3>
+                <p style={{ color: 'var(--text-secondary)', fontSize: '0.96rem', lineHeight: '1.6' }}>{s.body}</p>
+              </Link>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* ── 4. COMPOUNDING JOB NETWORK (DARK SECTION) ─────── */}
-      <CompoundingNetwork />
-
-      {/* ── 5. FEATURED JOBS ─────────────────────────────── */}
-      <section className="section-light section-padding" style={{ borderBottom: '1px solid var(--border-color)' }}>
+      {/* ── FOR CANDIDATES / FOR EMPLOYERS ───────────────── */}
+      <section className="section-light section-padding" style={{ background: '#ffffff', borderTop: '1px solid var(--border-color)', borderBottom: '1px solid var(--border-color)' }}>
         <div className="container">
-          <div style={{ textAlign: 'center', marginBottom: '60px' }}>
-            <div style={{ fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.2em', color: 'var(--text-secondary)', fontWeight: '600', marginBottom: '16px' }}>
-              LIVE OPPORTUNITIES
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '28px' }}>
+            <div className="card-light" style={{ padding: '40px' }}>
+              <div style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.15em', color: 'var(--accent-color)', fontWeight: '700', marginBottom: '12px' }}>For Candidates</div>
+              <h3 style={{ fontSize: '1.7rem', fontWeight: '800', letterSpacing: '-0.03em', marginBottom: '20px', color: 'var(--text-primary)' }}>Find and land your next role</h3>
+              <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 28px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                {['Build a complete profile and upload your CV', 'Search and filter live roles across industries', 'Apply in clicks with a saved profile', 'Track every application in your dashboard'].map((t, i) => (
+                  <li key={i} style={{ display: 'flex', gap: '10px', alignItems: 'flex-start', color: 'var(--text-secondary)', fontSize: '0.98rem' }}>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent-color)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0, marginTop: '2px' }}><path d="M20 6 9 17l-5-5" /></svg>
+                    <span>{t}</span>
+                  </li>
+                ))}
+              </ul>
+              <Link href="/register" className="fs-btn-pill" style={{ padding: '12px 26px', borderRadius: '30px', fontWeight: '600' }}>Create a candidate account</Link>
             </div>
-            <h2 style={{ fontSize: 'clamp(2.2rem, 4vw, 3.2rem)', fontWeight: '800', letterSpacing: '-0.03em', color: 'var(--text-primary)' }}>
-              Featured Job Openings
-            </h2>
-            <p style={{ color: 'var(--text-secondary)', fontSize: '1.1rem', marginTop: '8px' }}>
-              Hand-scored live listings actively crawled by the system
-            </p>
-          </div>
 
+            <div className="card-light" style={{ padding: '40px' }}>
+              <div style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.15em', color: 'var(--accent-color)', fontWeight: '700', marginBottom: '12px' }}>For Employers</div>
+              <h3 style={{ fontSize: '1.7rem', fontWeight: '800', letterSpacing: '-0.03em', marginBottom: '20px', color: 'var(--text-primary)' }}>Post roles and hire faster</h3>
+              <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 28px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                {['Post job listings in minutes', 'Reach motivated, profile-complete candidates', 'Review applicants in one place', 'Move candidates through your hiring pipeline'].map((t, i) => (
+                  <li key={i} style={{ display: 'flex', gap: '10px', alignItems: 'flex-start', color: 'var(--text-secondary)', fontSize: '0.98rem' }}>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent-color)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0, marginTop: '2px' }}><path d="M20 6 9 17l-5-5" /></svg>
+                    <span>{t}</span>
+                  </li>
+                ))}
+              </ul>
+              <Link href="/register" className="fs-btn-ghost" style={{ padding: '12px 26px', borderRadius: '30px', fontWeight: '600', border: '1px solid var(--border-color)', background: '#fff', color: '#09090b' }}>Post a job</Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── FEATURED JOBS ────────────────────────────────── */}
+      <section className="section-light section-padding">
+        <div className="container">
+          <div style={{ textAlign: 'center', marginBottom: '56px' }}>
+            <div style={{ fontSize: '0.78rem', textTransform: 'uppercase', letterSpacing: '0.2em', color: 'var(--text-secondary)', fontWeight: '700', marginBottom: '14px' }}>Latest Openings</div>
+            <h2 style={{ fontSize: 'clamp(2rem, 4vw, 2.8rem)', fontWeight: '800', letterSpacing: '-0.03em', color: 'var(--text-primary)' }}>Featured jobs</h2>
+          </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '24px' }}>
             {jobs.map((job) => (
               <div key={job.id} className="card-light" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', minHeight: '200px', padding: '28px' }}>
@@ -450,15 +235,12 @@ export default async function Home() {
                     {(job.company_name || 'O').charAt(0)}
                   </div>
                   <div style={{ textAlign: 'left' }}>
-                    <div style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', fontWeight: '500' }}>{job.company_name || 'Opelsoft Partner'}</div>
+                    <div style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', fontWeight: '500' }}>{job.company_name || 'OpelSoft Partner'}</div>
                     <h3 style={{ fontSize: '1.25rem', fontWeight: '700', color: 'var(--text-primary)', marginTop: '4px', letterSpacing: '-0.02em' }}>
-                      <Link href={`/jobs/${job.id}`} style={{ color: 'inherit', textDecoration: 'none' }}>
-                        {job.title}
-                      </Link>
+                      <Link href={`/jobs/${job.id}`} style={{ color: 'inherit', textDecoration: 'none' }}>{job.title}</Link>
                     </h3>
                   </div>
                 </div>
-
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '24px', borderTop: '1px solid rgba(9, 9, 11, 0.05)', paddingTop: '16px' }}>
                   <div style={{ display: 'flex', gap: '8px', fontSize: '0.78rem', color: 'var(--text-secondary)', fontFamily: 'var(--font-mono-stack)' }}>
                     {job.city && <span>{job.city}</span>}
@@ -466,88 +248,53 @@ export default async function Home() {
                   </div>
                   {job.salary_package && (
                     <div style={{ fontSize: '1rem', fontWeight: '700', color: 'var(--text-primary)', fontFamily: 'var(--font-mono-stack)' }}>
-                      £{job.salary_package.split('-')[0]}
-                      <span style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', fontWeight: '400' }}>/yr</span>
+                      £{job.salary_package.split('-')[0]}<span style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', fontWeight: '400' }}>/yr</span>
                     </div>
                   )}
                 </div>
               </div>
             ))}
           </div>
-
           <div style={{ textAlign: 'center', marginTop: '48px' }}>
             <Link href="/jobs" className="fs-btn-ghost" style={{ border: '1px solid var(--border-color)', background: '#ffffff', padding: '12px 28px', borderRadius: '30px', fontWeight: '600', fontSize: '0.95rem', color: '#09090b', display: 'inline-flex', alignItems: 'center', gap: '8px', boxShadow: 'var(--shadow-sm)' }}>
-              Browse All Openings
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
-              </svg>
+              Browse all jobs
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" /></svg>
             </Link>
           </div>
         </div>
       </section>
 
-      {/* ── 6. INDUSTRIES ────────────────────────────────── */}
-      {industries.length > 0 && (
-        <section className="section-light section-padding" style={{ borderBottom: '1px solid var(--border-color)', background: '#ffffff' }}>
-          <div className="container">
-            <div style={{ textAlign: 'center', marginBottom: '40px' }}>
-              <div style={{ fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.2em', color: 'var(--text-secondary)', fontWeight: '600', marginBottom: '12px' }}>
-                BY SECTOR
-              </div>
-              <h2 style={{ fontSize: '2rem', fontWeight: '800', letterSpacing: '-0.02em', color: 'var(--text-primary)' }}>
-                Browse by Industry
-              </h2>
-            </div>
-            
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px', justifyContent: 'center', maxWidth: '900px', margin: '0 auto' }}>
-              {industries.map((ind, i) => (
-                <Link
-                  key={i}
-                  href={`/jobs?industry=${encodeURIComponent(ind.industry || '')}`}
-                  style={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '8px',
-                    padding: '8px 18px',
-                    borderRadius: '30px',
-                    background: 'var(--bg-color)',
-                    border: '1px solid var(--border-color)',
-                    color: 'var(--text-primary)',
-                    fontSize: '0.9rem',
-                    fontWeight: '600',
-                    transition: 'all 0.2s',
-                  }}
-                  className="industry-pill"
-                >
-                  {ind.industry || 'General'}
-                  <span style={{ fontSize: '0.75rem', background: 'rgba(9, 9, 11, 0.05)', color: 'var(--text-secondary)', padding: '2px 8px', borderRadius: '20px', fontWeight: '500', fontFamily: 'var(--font-mono-stack)' }}>
-                    {ind.count}
-                  </span>
-                </Link>
-              ))}
-            </div>
+      {/* ── FAQ ──────────────────────────────────────────── */}
+      <section className="section-light section-padding">
+        <div className="container" style={{ maxWidth: '760px' }}>
+          <div style={{ textAlign: 'center', marginBottom: '48px' }}>
+            <div style={{ fontSize: '0.78rem', textTransform: 'uppercase', letterSpacing: '0.2em', color: 'var(--text-secondary)', fontWeight: '700', marginBottom: '14px' }}>Questions</div>
+            <h2 style={{ fontSize: 'clamp(2rem, 4vw, 2.6rem)', fontWeight: '800', letterSpacing: '-0.03em', color: 'var(--text-primary)' }}>Frequently asked</h2>
           </div>
-        </section>
-      )}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+            {FAQS.map((f, i) => (
+              <details key={i} className="card-light" style={{ padding: '20px 24px' }}>
+                <summary style={{ cursor: 'pointer', fontWeight: '700', fontSize: '1.05rem', color: 'var(--text-primary)' }}>{f.q}</summary>
+                <p style={{ color: 'var(--text-secondary)', fontSize: '0.96rem', lineHeight: '1.6', marginTop: '12px' }}>{f.a}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
 
-      {/* ── 7. CTA BANNER ────────────────────────────────── */}
+      {/* ── CTA BANNER ───────────────────────────────────── */}
       <section className="section-light" style={{ position: 'relative', overflow: 'hidden', padding: '100px 0', borderBottom: '1px solid var(--border-color)' }}>
-        <div className="ambient-glow ambient-blue animate-drift-1" style={{ top: '50%', left: '50%', width: '700px', height: '400px', transform: 'translate(-50%, -50%)', opacity: 0.6 }} />
-        
+        <div className="ambient-glow ambient-blue animate-drift-1" style={{ top: '50%', left: '50%', width: '700px', height: '400px', transform: 'translate(-50%, -50%)', opacity: 0.5 }} />
         <div className="container" style={{ position: 'relative', zIndex: 1, textAlign: 'center' }}>
-          <h2 style={{ fontSize: 'clamp(2.2rem, 5vw, 3.5rem)', fontWeight: '800', letterSpacing: '-0.04em', color: 'var(--text-primary)', marginBottom: '16px' }}>
-            Ready to let AI automate your search?
+          <h2 style={{ fontSize: 'clamp(2.2rem, 5vw, 3.4rem)', fontWeight: '800', letterSpacing: '-0.04em', color: 'var(--text-primary)', marginBottom: '16px' }}>
+            Ready to take the next step?
           </h2>
-          <p style={{ color: 'var(--text-secondary)', fontSize: '1.25rem', maxWidth: '540px', margin: '0 auto 40px', lineHeight: '1.6' }}>
-            Join top-tier developers who rely on Opelsoft to crawl career portals and rank opportunities autonomously.
+          <p style={{ color: 'var(--text-secondary)', fontSize: '1.2rem', maxWidth: '540px', margin: '0 auto 40px', lineHeight: '1.6' }}>
+            Join OpelSoft today — find your next role, or your next great hire.
           </p>
           <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', alignItems: 'center', flexWrap: 'wrap' }}>
-            <Link href="/register" className="fs-btn-pill" style={{ padding: '14px 28px', borderRadius: '30px', fontSize: '1rem', fontWeight: '600', boxShadow: 'var(--shadow-md)' }}>
-              Get Started Free
-            </Link>
-            <Link href="/about-us" className="fs-btn-ghost" style={{ padding: '14px 28px', borderRadius: '30px', fontSize: '1rem', fontWeight: '600', border: '1px solid var(--border-color)', background: '#ffffff', color: '#09090b', boxShadow: 'var(--shadow-sm)' }}>
-              Learn More
-            </Link>
+            <Link href="/register" className="fs-btn-pill" style={{ padding: '14px 28px', borderRadius: '30px', fontSize: '1rem', fontWeight: '600', boxShadow: 'var(--shadow-md)' }}>Get Started Free</Link>
+            <Link href="/jobs" className="fs-btn-ghost" style={{ padding: '14px 28px', borderRadius: '30px', fontSize: '1rem', fontWeight: '600', border: '1px solid var(--border-color)', background: '#ffffff', color: '#09090b', boxShadow: 'var(--shadow-sm)' }}>Browse Jobs</Link>
           </div>
         </div>
       </section>

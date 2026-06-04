@@ -16,7 +16,7 @@ export default function Footer() {
               <img src="/logo.svg" alt="OpelSoft Logo" style={{ height: '40px', width: 'auto', display: 'block' }} />
             </Link>
             <p className="df-tagline">
-              AI-powered recruitment automation for the modern candidate and employer.
+              The job platform connecting candidates and employers — find work, post roles, and hire.
             </p>
             <div className="df-socials">
               {/* LinkedIn */}
@@ -48,7 +48,7 @@ export default function Footer() {
             <ul className="df-links">
               <li><Link href="/jobs">Browse Jobs</Link></li>
               <li><Link href="/dashboard/candidate">Candidate Dashboard</Link></li>
-              <li><Link href="/dashboard/candidate?tab=ai-agent">AI Recruiting Agent</Link></li>
+              <li><Link href="/talent-staffing">Talent &amp; Staffing</Link></li>
               <li><Link href="/dashboard/employer">Employer Portal</Link></li>
             </ul>
           </div>

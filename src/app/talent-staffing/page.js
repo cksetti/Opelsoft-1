@@ -22,9 +22,18 @@ const MODELS = [
 ];
 
 const VALUES = [
-  { title: 'Vetted Talent', body: 'Every candidate is profile-complete and screened — you review quality, not noise.' },
-  { title: 'Faster Shortlists', body: 'A continuously-refreshed talent pool means roles get qualified candidates sooner.' },
-  { title: 'Built for Tech', body: 'Deep coverage of engineering and digital roles, with breadth across every other function.' },
+  {
+    title: 'Access to Qualified and Engaged Professionals',
+    body: 'We have curated a robust, global network of qualified talent spanning technology, engineering, healthcare, and professional services. Our proprietary applicant tracking system helps our recruiters find your ideal candidate with speed and accuracy. We continually invest in our talent pipeline by certifying, upskilling, and retraining our consultants.',
+  },
+  {
+    title: 'Thorough Vetting and Recruiting Process',
+    body: 'We manage the entire recruiting process — from strategic goal setting, candidate screening, interviewing, and skills validation testing, to recommending candidates, conveying offers, onboarding, and performance management — so you can focus on what’s important: running and growing your business.',
+  },
+  {
+    title: 'Commitment to Compliance',
+    body: 'Our compliance team understands the importance of meeting and adapting to precise contractual screening requirements through background, financial, and substance screening. Clients trust us to ensure documents are signed, information is properly handled, and the details get the attention they deserve — held to the highest standards of data security for our contractors and clients.',
+  },
 ];
 
 export default function TalentStaffingPage() {
@@ -92,7 +101,7 @@ export default function TalentStaffingPage() {
         <div className="container">
           <div style={{ textAlign: 'center', marginBottom: '56px' }}>
             <div style={{ fontSize: '0.78rem', textTransform: 'uppercase', letterSpacing: '0.2em', color: 'var(--text-secondary)', fontWeight: '700', marginBottom: '14px' }}>Our Solutions</div>
-            <h2 style={{ fontSize: 'clamp(2rem, 4vw, 2.8rem)', fontWeight: '800', letterSpacing: '-0.03em' }}>Staffing &amp; executive search solutions</h2>
+            <h2 style={{ fontSize: 'clamp(2rem, 4vw, 2.8rem)', fontWeight: '800', letterSpacing: '-0.03em' }}>Our Talent Staffing &amp; Executive Search Solutions</h2>
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '24px' }}>
             {SOLUTIONS.map((s, i) => (

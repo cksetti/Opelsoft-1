@@ -16,9 +16,9 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata = {
-  title: "OPELSOFT - AI AGENT PORTAL",
+  title: "OpelSoft — Jobs, Talent & Staffing",
   description:
-    "Opelsoft autonomous recruiting and AI agent platform.",
+    "OpelSoft connects candidates and employers — find jobs, build your profile, apply, and hire across every industry.",
 };
 
 export default function RootLayout({ children }) {

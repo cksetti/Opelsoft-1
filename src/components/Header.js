@@ -4,20 +4,13 @@ import { useState, useRef, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-const TALENT_NAV = {
-  name: 'Talent & Staffing',
-  dropdown: [
-    { name: 'Overview', path: '/talent-staffing' },
-    { name: 'Staffing Solutions', path: '/talent-staffing#solutions' },
-    { name: 'How We Work', path: '/talent-staffing#models' },
-  ],
-};
+const TALENT_NAV = { name: 'Talent & Staffing', path: '/talent-staffing' };
 
 const CANDIDATE_NAV = {
   name: 'For Candidates',
   dropdown: [
     { name: 'My Dashboard', path: '/dashboard/candidate' },
-    { name: 'AI Recruiting Agent', path: '/dashboard/candidate?tab=ai-agent' },
+    { name: 'My Applications', path: '/dashboard/candidate?tab=applied-jobs' },
     { name: 'Browse Jobs', path: '/jobs' },
   ],
 };
