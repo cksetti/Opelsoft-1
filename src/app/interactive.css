@@ -189,3 +189,6 @@
   -webkit-mask-image: radial-gradient(ellipse 72% 85% at 50% 50%, #000, transparent 82%);
           mask-image: radial-gradient(ellipse 72% 85% at 50% 50%, #000, transparent 82%);
 }
+
+/* Hide decorative floating geometry on small screens to keep things tidy */
+@media (max-width: 768px) { .op-decor { display: none; } }
