@@ -2,6 +2,7 @@ import Link from 'next/link';
 import Reveal from '@/components/ui/Reveal';
 import CountUp from '@/components/ui/CountUp';
 import Decor from '@/components/ui/Decor';
+import StatsBand from '@/components/ui/StatsBand';
 
 export const metadata = {
   title: 'Enterprise Solutions — OpelSoft',
@@ -53,22 +54,7 @@ export default function EnterpriseSolutionsPage() {
       </section>
 
       {/* STATS */}
-      <section className="stat-band" style={{ borderBottom: '1px solid var(--border-color)' }}>
-        <Decor variant="c" tone="dark" />
-        <div className="container" style={{ position: 'relative', zIndex: 1, padding: '46px 0' }}>
-          <Reveal>
-            <div className="stat-row">
-              {STATS.map((m, i) => (
-                <div className="stat-cell" key={i}>
-                  <span className="stat-ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#c4b5fd" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">{m.icon}</svg></span>
-                  <div className="stat-num"><CountUp value={m.v} suffix={m.s} /></div>
-                  <div className="stat-lbl">{m.label}</div>
-                </div>
-              ))}
-            </div>
-          </Reveal>
-        </div>
-      </section>
+      <StatsBand items={STATS} tone="dark" decor={<Decor variant="c" tone="dark" />} />
 
       {/* SERVICES */}
       <section className="section-padding sec-grid" style={{ position: 'relative' }}>
