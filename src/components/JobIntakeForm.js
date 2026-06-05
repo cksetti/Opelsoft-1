@@ -2,7 +2,14 @@
 
 import { useState } from 'react';
 
-const WORK_AUTH = ['OPT', 'CPT', 'H1B', 'Need H1B', 'Green Card', 'US Citizen'];
+const WORK_AUTH = [
+  'OPT (Optional Practical Training)',
+  'CPT (Curricular Practical Training)',
+  'H-1B',
+  'Needs H-1B Sponsorship',
+  'Green Card (Permanent Resident)',
+  'U.S. Citizen',
+];
 const EMPTY = { name: '', contact: '', email: '', workAuth: '' };
 
 export default function JobIntakeForm() {
@@ -10,6 +17,7 @@ export default function JobIntakeForm() {
   const [status, setStatus] = useState('idle'); // idle | sending | error
   const [popup, setPopup] = useState(false);
   const [msg, setMsg] = useState('');
+  const [exp, setExp] = useState(1);
   const set = (k) => (e) => setForm((f) => ({ ...f, [k]: e.target.value }));
 
   const submit = async (e) => {
@@ -20,12 +28,13 @@ export default function JobIntakeForm() {
       const r = await fetch('/api/intake', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
+        body: JSON.stringify({ ...form, experience: `${exp}+ years` }),
       });
       const d = await r.json();
       if (d.success) {
         setStatus('idle');
         setForm(EMPTY);
+        setExp(1);
         setPopup(true);
       } else {
         setStatus('error');
@@ -55,6 +64,23 @@ export default function JobIntakeForm() {
           <div className="form-group">
             <label className="form-label" htmlFor="intake-email">Email</label>
             <input id="intake-email" type="email" className="form-control op-focus" required value={form.email} onChange={set('email')} placeholder="name@email.com" autoComplete="email" />
+          </div>
+          <div className="form-group">
+            <label className="form-label" htmlFor="intake-exp">Years of Experience</label>
+            <div className="exp-pick">
+              <div className="exp-value">
+                <span className="op-grad-text exp-num">{exp}+</span>
+                <span className="exp-unit">{exp === 20 ? 'years & above' : 'years'}</span>
+              </div>
+              <input
+                id="intake-exp" type="range" min="1" max="20" step="1" value={exp}
+                onChange={(e) => setExp(Number(e.target.value))}
+                className="exp-range"
+                style={{ background: `linear-gradient(to right, var(--op-indigo) ${((exp - 1) / 19) * 100}%, #e5e7eb ${((exp - 1) / 19) * 100}%)` }}
+                aria-label="Years of experience"
+              />
+              <div className="exp-scale"><span>1+</span><span>10+</span><span>20+</span></div>
+            </div>
           </div>
           <div className="form-group">
             <label className="form-label" htmlFor="intake-auth">Work Authorization</label>

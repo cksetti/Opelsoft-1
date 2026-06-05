@@ -4,12 +4,13 @@ import Decor from '@/components/ui/Decor';
 import StatsBand from '@/components/ui/StatsBand';
 
 export const metadata = {
-  title: 'Enterprise Solutions — OpelSoft',
+  title: 'Enterprise Solutions - OpelSoft',
   description: 'OpelSoft provides Software Development & IT Consulting Services to Fortune 500 clients across the US.',
 };
 
 const SERVICES = [
-  { name: 'Business Consulting', tint: '#4F46E5', body: 'Strategy and operations consulting that aligns your people, processes, and technology with clear business goals.', icon: <><path d="M3 21h18" /><path d="M5 21V7l8-4v18" /><path d="M19 21V11l-6-4" /></> },
+  { name: 'AI Integration', tint: '#4F46E5', body: 'Embed AI, LLMs, and intelligent automation into your products and workflows, from copilots and chatbots to predictive analytics.', icon: <><circle cx="12" cy="12" r="3" /><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1" /></> },
+  { name: 'Business Consulting', tint: '#7C3AED', body: 'Strategy and operations consulting that aligns your people, processes, and technology with clear business goals.', icon: <><path d="M3 21h18" /><path d="M5 21V7l8-4v18" /><path d="M19 21V11l-6-4" /></> },
   { name: 'IT Consulting', tint: '#7C3AED', body: 'Pragmatic technology guidance, from architecture to roadmap, that turns IT into a real competitive advantage.', icon: <><rect x="4" y="4" width="16" height="16" rx="2" /><rect x="9" y="9" width="6" height="6" /><line x1="9" y1="1" x2="9" y2="4" /><line x1="15" y1="1" x2="15" y2="4" /><line x1="9" y1="20" x2="9" y2="23" /><line x1="15" y1="20" x2="15" y2="23" /><line x1="20" y1="9" x2="23" y2="9" /><line x1="20" y1="14" x2="23" y2="14" /><line x1="1" y1="9" x2="4" y2="9" /><line x1="1" y1="14" x2="4" y2="14" /></> },
   { name: 'Digital Marketing', tint: '#DB2777', body: 'Data-led campaigns, SEO, and content that grow reach, generate pipeline, and prove return on every dollar.', icon: <><path d="m3 11 18-5v12L3 14v-3z" /><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6" /></> },
   { name: 'Human Resources (HR)', tint: '#10B981', body: 'End-to-end HR support, from talent acquisition and onboarding to compliance and workforce management.', icon: <><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M23 21v-2a4 4 0 0 0-3-3.87" /><path d="M16 3.13a4 4 0 0 1 0 7.75" /></> },
