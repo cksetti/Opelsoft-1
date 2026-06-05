@@ -10,23 +10,13 @@ const CANDIDATE_NAV = { name: 'For Candidates', path: '/dashboard/candidate' };
 
 // Shown only when an employer is signed in.
 const EMPLOYER_NAV = {
-  name: 'For Employers',
-  dropdown: [
-    { name: 'Employer Dashboard', path: '/dashboard/employer' },
-    { name: 'Post a Job', path: '/dashboard/employer?tab=post-job' },
-  ],
+  name: 'For Employers', dropdown: [
+    { name: 'Employer Dashboard', path: '/dashboard/employer' }, { name: 'Post a Job', path: '/dashboard/employer?tab=post-job' }, ],
 };
 
 function buildNav(user) {
   return [
-    { name: 'Home', path: '/' },
-    { name: 'Find Jobs', path: '/jobs' },
-    TALENT_NAV,
-    CANDIDATE_NAV,
-    ...(user && user.role === 'employer' ? [EMPLOYER_NAV] : []),
-    { name: 'About Us', path: '/about-us' },
-    { name: 'Contact', path: '/contact-us' },
-  ];
+    { name: 'Home', path: '/' }, { name: 'About Us', path: '/about-us' }, TALENT_NAV, CANDIDATE_NAV, { name: 'Find Jobs', path: '/jobs' }, ...(user && user.role === 'employer' ? [EMPLOYER_NAV] : []), { name: 'Contact', path: '/contact-us' }, ];
 }
 
 function DropdownMenu({ items, onMouseEnter, onMouseLeave }) {
@@ -45,6 +35,7 @@ export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(null);
   const [user, setUser] = useState(null);
+  const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
   const headerRef = useRef(null);
   const closeTimer = useRef(null);
@@ -85,6 +76,13 @@ export default function Header() {
     }
   };
 
+  // Frosted-glass + shadow once the page is scrolled
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
   // Close dropdown on outside click
   useEffect(() => {
     function handleClick(e) {
@@ -106,14 +104,14 @@ export default function Header() {
 
   return (
     <>
-      <header className="fs-header" ref={headerRef}>
+      <header className={`fs-header${scrolled ? ' scrolled' : ''}`} ref={headerRef}>
         <div className="fs-header-inner">
           {/* Logo */}
           <Link href="/" className="fs-logo" style={{ display: 'flex', alignItems: 'center' }}>
-            <img src="/logo.svg" alt="OpelSoft Logo" style={{ height: '46px', width: 'auto', display: 'block' }} />
+            <img src="/logo.svg" alt="OpelSoft Logo" style={{ height: '32px', width: 'auto', display: 'block' }} />
           </Link>
 
-          {/* Desktop Nav — centered */}
+          {/* Desktop Nav, centered */}
           <nav className="fs-nav-desktop">
             {navItems.map((item) => {
               const hasDropdown = !!item.dropdown;

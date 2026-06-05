@@ -3,11 +3,21 @@ import Link from 'next/link';
 import Reveal from '@/components/ui/Reveal';
 import SaveButton from '@/components/ui/SaveButton';
 
+// Format "90000-140000" as "£90,000 to £140,000"
+export function formatSalary(pkg) {
+  if (!pkg) return null;
+  const fmt = (n) => {
+    const x = Number(String(n).replace(/[^0-9.]/g, ''));
+    return Number.isNaN(x) || x === 0 ? String(n).trim() : '£' + x.toLocaleString('en-GB');
+  };
+  const parts = String(pkg).split('-').map((s) => s.trim()).filter(Boolean);
+  return parts.length >= 2 ? `${fmt(parts[0])} to ${fmt(parts[1])}` : fmt(parts[0]);
+}
+
 async function getFilteredJobs(searchParams) {
   const { keyword, location, job_type, industry, city } = searchParams;
   let query = `
-    SELECT j.id, j.title, j.job_type, j.salary_package, j.address, j.city, j.country, j.industry, j.experience, j.created_at,
-           e.company_name, e.logo_url
+    SELECT j.id, j.title, j.job_type, j.salary_package, j.address, j.city, j.country, j.industry, j.experience, j.created_at, e.company_name, e.logo_url
     FROM new_jobs j
     LEFT JOIN new_employer_profiles e ON j.employer_id = e.user_id
     WHERE j.status = 'active'
@@ -21,20 +31,20 @@ async function getFilteredJobs(searchParams) {
   query += ` ORDER BY j.created_at DESC`;
 
   try {
-    const [jobs] = await pool.query(query, params);
-    const [dbJobTypes] = await pool.query("SELECT DISTINCT job_type FROM new_jobs WHERE job_type != '' AND job_type IS NOT NULL");
-    const [dbIndustries] = await pool.query("SELECT DISTINCT industry FROM new_jobs WHERE industry != '' AND industry IS NOT NULL LIMIT 15");
-    const [dbLocations] = await pool.query("SELECT DISTINCT city FROM new_jobs WHERE city != '' AND city IS NOT NULL LIMIT 10");
+    // Run all queries in parallel — one round-trip of latency to the remote DB
+    // instead of four sequential ones (cuts /jobs render time ~4x).
+    const [[jobs], [dbJobTypes], [dbIndustries], [dbLocations]] = await Promise.all([
+      pool.query(query, params),
+      pool.query("SELECT DISTINCT job_type FROM new_jobs WHERE job_type != '' AND job_type IS NOT NULL"),
+      pool.query("SELECT DISTINCT industry FROM new_jobs WHERE industry != '' AND industry IS NOT NULL LIMIT 15"),
+      pool.query("SELECT DISTINCT city FROM new_jobs WHERE city != '' AND city IS NOT NULL LIMIT 10"),
+    ]);
     return { jobs, filterOptions: { jobTypes: dbJobTypes.map((r) => r.job_type), industries: dbIndustries.map((r) => r.industry), locations: dbLocations.map((r) => r.city) } };
   } catch (err) {
     console.error('Failed to query filtered jobs, using fallback:', err);
     return {
       jobs: [
-        { id: 1, title: 'Senior AI/ML Engineer', job_type: 'Full-time', salary_package: '90000-140000', city: 'London', country: 'United Kingdom', company_name: 'DeepMind', industry: 'Artificial Intelligence', experience: 'Senior' },
-        { id: 2, title: 'Robotics Engineer', job_type: 'Full-time', salary_package: '75000-110000', city: 'Cambridge', country: 'United Kingdom', company_name: 'Wayve', industry: 'Robotics', experience: 'Mid' },
-      ],
-      filterOptions: { jobTypes: ['Full-time', 'Part-time', 'Contract', 'Internship'], industries: ['Artificial Intelligence', 'Robotics', 'Machine Learning', 'Automation'], locations: ['London', 'Cambridge', 'Manchester'] },
-    };
+        { id: 1, title: 'Senior AI/ML Engineer', job_type: 'Full-time', salary_package: '90000-140000', city: 'London', country: 'United Kingdom', company_name: 'DeepMind', industry: 'Artificial Intelligence', experience: 'Senior' }, { id: 2, title: 'Robotics Engineer', job_type: 'Full-time', salary_package: '75000-110000', city: 'Cambridge', country: 'United Kingdom', company_name: 'Wayve', industry: 'Robotics', experience: 'Mid' }, ], filterOptions: { jobTypes: ['Full-time', 'Part-time', 'Contract', 'Internship'], industries: ['Artificial Intelligence', 'Robotics', 'Machine Learning', 'Automation'], locations: ['London', 'Cambridge', 'Manchester'] }, };
   }
 }
 
@@ -122,7 +132,7 @@ export default async function JobsPage({ searchParams }) {
                         <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
                           <span style={{ fontSize: '0.76rem', fontWeight: '600', color: 'var(--text-secondary)', background: 'var(--bg-color)', border: '1px solid var(--border-color)', borderRadius: '20px', padding: '4px 10px' }}>📍 {job.city || 'Multiple'}{job.country ? `, ${job.country}` : ''}</span>
                           <span style={{ fontSize: '0.76rem', fontWeight: '600', color: 'var(--op-indigo)', background: 'rgba(79,70,229,0.08)', borderRadius: '20px', padding: '4px 10px' }}>{job.job_type || 'Full-time'}</span>
-                          {job.salary_package && <span style={{ fontSize: '0.76rem', fontWeight: '600', color: 'var(--text-secondary)', background: 'var(--bg-color)', border: '1px solid var(--border-color)', borderRadius: '20px', padding: '4px 10px' }}>💷 £{job.salary_package}</span>}
+                          {job.salary_package && <span style={{ fontSize: '0.76rem', fontWeight: '600', color: 'var(--text-secondary)', background: 'var(--bg-color)', border: '1px solid var(--border-color)', borderRadius: '20px', padding: '4px 10px' }}>💷 {formatSalary(job.salary_package)}</span>}
                         </div>
                       </div>
                       <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', alignItems: 'flex-end', flexShrink: 0 }}>
