@@ -4,7 +4,15 @@ import { sendMail, isMailConfigured } from '@/lib/mailer';
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
-const WORK_AUTH = ['OPT', 'CPT', 'H1B', 'Need H1B', 'Green Card', 'US Citizen'];
+const WORK_AUTH = [
+  'OPT (Optional Practical Training)',
+  'CPT (Curricular Practical Training)',
+  'H-1B',
+  'Needs H-1B Sponsorship',
+  'Green Card (Permanent Resident)',
+  'U.S. Citizen',
+];
+const EXPERIENCE = Array.from({ length: 20 }, (_, i) => `${i + 1}+ years`);
 const RECIPIENT = process.env.INTAKE_TO || 'deekshith@gmail.com';
 
 const esc = (s) => String(s).replace(/[<>&]/g, (c) => ({ '<': '&lt;', '>': '&gt;', '&': '&amp;' }[c]));
@@ -20,13 +28,17 @@ export async function POST(req) {
   const name = (body.name || '').toString().trim();
   const contact = (body.contact || '').toString().trim();
   const email = (body.email || '').toString().trim();
+  const experience = (body.experience || '').toString().trim();
   const workAuth = (body.workAuth || '').toString().trim();
 
-  if (!name || !contact || !email || !workAuth) {
+  if (!name || !contact || !email || !experience || !workAuth) {
     return Response.json({ success: false, message: 'All fields are required.' }, { status: 400 });
   }
   if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
     return Response.json({ success: false, message: 'Please enter a valid email address.' }, { status: 400 });
+  }
+  if (!EXPERIENCE.includes(experience)) {
+    return Response.json({ success: false, message: 'Please select your years of experience.' }, { status: 400 });
   }
   if (!WORK_AUTH.includes(workAuth)) {
     return Response.json({ success: false, message: 'Please select a valid work authorization.' }, { status: 400 });
@@ -39,12 +51,15 @@ export async function POST(req) {
       name VARCHAR(255) NOT NULL,
       contact VARCHAR(100) NOT NULL,
       email VARCHAR(255) NOT NULL,
-      work_auth VARCHAR(50) NOT NULL,
+      experience VARCHAR(50) NOT NULL DEFAULT '',
+      work_auth VARCHAR(100) NOT NULL,
       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     )`);
+    // Backfill the experience column for tables created before this field existed.
+    try { await pool.query("ALTER TABLE new_candidate_intake ADD COLUMN experience VARCHAR(50) NOT NULL DEFAULT ''"); } catch { /* column already present */ }
     await pool.query(
-      'INSERT INTO new_candidate_intake (name, contact, email, work_auth) VALUES (?, ?, ?, ?)',
-      [name, contact, email, workAuth],
+      'INSERT INTO new_candidate_intake (name, contact, email, experience, work_auth) VALUES (?, ?, ?, ?, ?)',
+      [name, contact, email, experience, workAuth],
     );
   } catch (e) {
     console.error('Intake DB store failed:', e.message);
@@ -61,7 +76,7 @@ export async function POST(req) {
       to: RECIPIENT,
       replyTo: email,
       subject: `New candidate enquiry — ${name}`,
-      text: `A candidate submitted the Find Jobs form on OpelSoft.\n\nName: ${name}\nContact: ${contact}\nEmail: ${email}\nWork authorization: ${workAuth}\n`,
+      text: `A candidate submitted the Find Jobs form on OpelSoft.\n\nName: ${name}\nContact: ${contact}\nEmail: ${email}\nExperience: ${experience}\nWork authorization: ${workAuth}\n`,
       html: `<div style="font-family:Arial,sans-serif;font-size:15px;color:#0f172a">
         <h2 style="margin:0 0 12px">New candidate enquiry</h2>
         <p style="margin:0 0 16px;color:#475569">Submitted via the OpelSoft Find Jobs form.</p>
@@ -69,6 +84,7 @@ export async function POST(req) {
           <tr><td style="padding:6px 16px 6px 0;color:#64748b">Name</td><td style="padding:6px 0;font-weight:600">${esc(name)}</td></tr>
           <tr><td style="padding:6px 16px 6px 0;color:#64748b">Contact</td><td style="padding:6px 0;font-weight:600">${esc(contact)}</td></tr>
           <tr><td style="padding:6px 16px 6px 0;color:#64748b">Email</td><td style="padding:6px 0;font-weight:600">${esc(email)}</td></tr>
+          <tr><td style="padding:6px 16px 6px 0;color:#64748b">Experience</td><td style="padding:6px 0;font-weight:600">${esc(experience)}</td></tr>
           <tr><td style="padding:6px 16px 6px 0;color:#64748b">Work authorization</td><td style="padding:6px 0;font-weight:600">${esc(workAuth)}</td></tr>
         </table>
       </div>`,

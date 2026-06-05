@@ -48,7 +48,7 @@ export default function JobsPage() {
 
               <div style={{ marginTop: '28px', display: 'inline-flex', alignItems: 'center', gap: '8px', fontSize: '0.82rem', fontWeight: '600', color: 'var(--text-secondary)', background: '#fff', border: '1px solid var(--border-color)', borderRadius: '30px', padding: '8px 16px', boxShadow: 'var(--shadow-sm)' }}>
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--op-indigo)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6 9 17l-5-5" /></svg>
-                All work authorizations welcome, OPT, CPT, H1B, Green Card &amp; US Citizen
+                All work authorizations welcome, OPT, CPT, H-1B, Green Card &amp; U.S. Citizen
               </div>
             </Reveal>
 
