@@ -1,7 +1,6 @@
 import pool from '@/lib/db';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import ApplyModal from '@/components/ApplyModal';
 
 async function getJobDetail(id) {
   try {
@@ -16,7 +15,7 @@ async function getJobDetail(id) {
   } catch (error) {
     console.error(`Failed to fetch job ${id}, using fallback:`, error);
     return {
-      id: parseInt(id, 10) || 1, title: 'Senior AI/ML Engineer', description: '<p>OpelSoft is hiring a Senior AI/ML Engineer on behalf of one of our verified clients. You will design, train, and deploy machine-learning models in production, collaborating across data, platform, and product teams.</p>', requirements: 'Requires 4+ years of experience with Python and modern ML frameworks, strong fundamentals in machine learning, and experience shipping models to production.', job_type: 'Full-time', industry: 'Artificial Intelligence', qualification: 'masters-degree', experience: 'Senior', salary_package: '90000-140000', address: '394 Edgware Road, London, W2 1ED', city: 'London', country: 'United Kingdom', closing_date: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), company_name: 'OpelSoft Partner', company_desc: 'A leading team building intelligent systems.', };
+      id: parseInt(id, 10) || 1, title: 'Senior AI/ML Engineer', description: '<p>OpelSoft is hiring a Senior AI/ML Engineer on behalf of one of our verified clients. You will design, train, and deploy machine-learning models in production, collaborating across data, platform, and product teams.</p>', requirements: 'Requires 4+ years of experience with Python and modern ML frameworks, strong fundamentals in machine learning, and experience shipping models to production.', job_type: 'Full-time', industry: 'Artificial Intelligence', qualification: 'masters-degree', experience: 'Senior', salary_package: '90000-140000', address: '255 Old New Brunswick Rd, Ste: N210, Piscataway, NJ 08854', city: 'Piscataway', country: 'United States', closing_date: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), company_name: 'OpelSoft Partner', company_desc: 'A leading team building intelligent systems.', };
   }
 }
 
@@ -94,7 +93,7 @@ export default async function JobDetailPage({ params }) {
           {/* Sidebar */}
           <aside style={{ display: 'flex', flexDirection: 'column', gap: '16px', position: 'sticky', top: '90px' }}>
             <div className="card-light" style={{ padding: '24px', textAlign: 'center' }}>
-              <ApplyModal jobId={job.id} jobTitle={job.title} />
+              <Link href="/jobs" className="op-btn op-grad-bg" style={{ display: 'block', width: '100%', padding: '14px', borderRadius: '12px', fontWeight: '700', color: '#fff', textDecoration: 'none', textAlign: 'center' }}>Apply now</Link>
               <p style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', marginTop: '14px' }}><strong>Closes:</strong> {closing}</p>
             </div>
             <div className="card-light" style={{ padding: '24px' }}>

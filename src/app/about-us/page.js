@@ -1,10 +1,11 @@
 import Link from 'next/link';
 import Reveal from '@/components/ui/Reveal';
-import CountUp from '@/components/ui/CountUp';
 import GeoDecor from '@/components/ui/GeoDecor';
+import Decor from '@/components/ui/Decor';
+import StatsBand from '@/components/ui/StatsBand';
 
 export const metadata = {
-  title: 'About OpelSoft, Talent for AI, Robotics & Deep Tech', description: 'OpelSoft is a specialist talent and staffing platform connecting people with leaders in artificial intelligence, robotics, and emerging technology.',
+  title: 'About OpelSoft — Software Development & IT Consulting', description: 'OpelSoft provides Software Development & IT Consulting Services to Fortune 500 clients across the US, with staffing and consulting across Banking, Healthcare, Telecom, Insurance, Retail and more.',
 };
 
 function Icon({ tint, children }) {
@@ -16,15 +17,15 @@ function Icon({ tint, children }) {
 }
 
 const DO = [
-  { tint: '#4F46E5', title: 'Specialist Job Board', body: 'Curated roles in AI, robotics, machine learning, and automation from teams building the future.', icon: <><rect x="2" y="7" width="20" height="14" rx="2" /><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" /></> }, { tint: '#7C3AED', title: 'Talent & Staffing', body: 'Contract, direct-hire, and executive search for technical teams that need rare, vetted skills.', icon: <><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" /></> }, { tint: '#0EA5E9', title: 'Career Support', body: 'A profile you build once, application tracking, and guidance to help you land the right role.', icon: <path d="M22 12h-4l-3 9L9 3l-3 9H2" /> },
+  { tint: '#4F46E5', title: 'Contract Staffing', body: 'Flexible, vetted professionals embedded with your teams for exactly as long as you need them.', icon: <><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M22 21v-2a4 4 0 0 0-3-3.87" /></> }, { tint: '#7C3AED', title: 'Direct Placements', body: 'Permanent hiring end to end, sourced and matched to your core business and culture.', icon: <><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" /></> }, { tint: '#0EA5E9', title: 'Bench Sales', body: 'Connecting our skilled consultants with the right client requirements, fast.', icon: <><line x1="12" y1="1" x2="12" y2="23" /><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" /></> }, { tint: '#10B981', title: 'Application Development', body: 'Custom web, mobile, and enterprise applications, built and modernized end to end.', icon: <><polyline points="16 18 22 12 16 6" /><polyline points="8 6 2 12 8 18" /></> }, { tint: '#F59E0B', title: 'CRM Solutions', body: 'Customer relationship platforms implemented and tailored to unify sales, service, and marketing.', icon: <><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" /></> },
 ];
 
 const VALUES = [
-  { tint: '#4F46E5', emoji: '🛡️', title: 'Absolute Integrity', body: 'Transparent partnerships, clear communication, and honest expectations, for candidates and companies alike.' }, { tint: '#7C3AED', emoji: '🎯', title: 'Specialist Expertise', body: 'We focus on AI, robotics, and deep tech, so we understand the roles, the skills, and the people behind them.' }, { tint: '#10B981', emoji: '🌍', title: 'Global Reach', body: 'A worldwide network of talent and employers, connecting remote-ready professionals with ambitious teams.' },
+  { tint: '#4F46E5', emoji: '🛡️', title: 'Absolute Integrity', body: 'Transparent partnerships, clear communication, and honest expectations, for candidates and companies alike.' }, { tint: '#7C3AED', emoji: '🎯', title: 'Deep Expertise', body: 'From full-stack, Java, and .NET to Salesforce, cloud, and machine learning, we know the technologies and the people who deliver them.' }, { tint: '#10B981', emoji: '🌍', title: 'Global Delivery', body: 'Headquartered in Edison, NJ with an offshore center in Hyderabad, India, we serve multinational customers around the clock.' },
 ];
 
 const FOCUS_AREAS = [
-  { name: 'Artificial Intelligence', tint: '#4F46E5', icon: <><rect x="4" y="4" width="16" height="16" rx="2" /><rect x="9" y="9" width="6" height="6" /><line x1="9" y1="1" x2="9" y2="4" /><line x1="15" y1="1" x2="15" y2="4" /><line x1="9" y1="20" x2="9" y2="23" /><line x1="15" y1="20" x2="15" y2="23" /><line x1="20" y1="9" x2="23" y2="9" /><line x1="20" y1="14" x2="23" y2="14" /><line x1="1" y1="9" x2="4" y2="9" /><line x1="1" y1="14" x2="4" y2="14" /></> }, { name: 'Robotics', tint: '#7C3AED', icon: <><rect x="3" y="11" width="18" height="10" rx="2" /><circle cx="12" cy="5" r="2" /><path d="M12 7v4" /><line x1="8" y1="16" x2="8" y2="16" /><line x1="16" y1="16" x2="16" y2="16" /></> }, { name: 'Machine Learning', tint: '#0EA5E9', icon: <><circle cx="18" cy="5" r="3" /><circle cx="6" cy="12" r="3" /><circle cx="18" cy="19" r="3" /><line x1="8.59" y1="13.51" x2="15.42" y2="17.49" /><line x1="15.41" y1="6.51" x2="8.59" y2="10.49" /></> }, { name: 'Computer Vision', tint: '#10B981', icon: <><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" /><circle cx="12" cy="12" r="3" /></> }, { name: 'Automation', tint: '#F59E0B', icon: <path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z" /> }, { name: 'Data Science', tint: '#EF4444', icon: <><line x1="12" y1="20" x2="12" y2="10" /><line x1="18" y1="20" x2="18" y2="4" /><line x1="6" y1="20" x2="6" y2="16" /></> }, { name: 'Embedded Systems', tint: '#6366F1', icon: <><rect x="4" y="4" width="16" height="16" rx="2" /><rect x="9" y="9" width="6" height="6" /><line x1="9" y1="2" x2="9" y2="4" /><line x1="15" y1="2" x2="15" y2="4" /><line x1="2" y1="9" x2="4" y2="9" /><line x1="2" y1="15" x2="4" y2="15" /></> }, { name: 'MLOps', tint: '#14B8A6', icon: <><line x1="6" y1="3" x2="6" y2="15" /><circle cx="18" cy="6" r="3" /><circle cx="6" cy="18" r="3" /><path d="M18 9a9 9 0 0 1-9 9" /></> },
+  { name: 'Full-Stack Development', tint: '#4F46E5', icon: <><polyline points="16 18 22 12 16 6" /><polyline points="8 6 2 12 8 18" /></> }, { name: 'Java', tint: '#7C3AED', icon: <><path d="M18 8h1a4 4 0 0 1 0 8h-1" /><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z" /><line x1="6" y1="1" x2="6" y2="4" /><line x1="10" y1="1" x2="10" y2="4" /><line x1="14" y1="1" x2="14" y2="4" /></> }, { name: '.NET', tint: '#0EA5E9', icon: <><path d="M8 3H7a2 2 0 0 0-2 2v5a2 2 0 0 1-2 2 2 2 0 0 1 2 2v5a2 2 0 0 0 2 2h1" /><path d="M16 3h1a2 2 0 0 1 2 2v5a2 2 0 0 0 2 2 2 2 0 0 0-2 2v5a2 2 0 0 1-2 2h-1" /></> }, { name: 'Salesforce', tint: '#10B981', icon: <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z" /> }, { name: 'QA & Testing', tint: '#F59E0B', icon: <><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" /><polyline points="22 4 12 14.01 9 11.01" /></> }, { name: 'Business Analysis', tint: '#EF4444', icon: <><line x1="12" y1="20" x2="12" y2="10" /><line x1="18" y1="20" x2="18" y2="4" /><line x1="6" y1="20" x2="6" y2="16" /></> }, { name: 'Android', tint: '#6366F1', icon: <><rect x="5" y="2" width="14" height="20" rx="2" /><line x1="12" y1="18" x2="12.01" y2="18" /></> }, { name: 'iOS', tint: '#14B8A6', icon: <><rect x="7" y="2" width="10" height="20" rx="2" /><line x1="11" y1="18" x2="13" y2="18" /></> }, { name: 'Machine Learning', tint: '#DB2777', icon: <><circle cx="18" cy="5" r="3" /><circle cx="6" cy="12" r="3" /><circle cx="18" cy="19" r="3" /><line x1="8.59" y1="13.51" x2="15.42" y2="17.49" /><line x1="15.41" y1="6.51" x2="8.59" y2="10.49" /></> }, { name: 'Python', tint: '#2563EB', icon: <><polyline points="4 17 10 11 4 5" /><line x1="12" y1="19" x2="20" y2="19" /></> },
 ];
 
 export default function AboutUsPage() {
@@ -39,10 +40,10 @@ export default function AboutUsPage() {
             <Reveal>
               <div style={{ fontSize: '0.78rem', textTransform: 'uppercase', letterSpacing: '0.22em', color: 'var(--op-indigo)', fontWeight: '700', marginBottom: '18px' }}>About OpelSoft</div>
               <h1 style={{ fontSize: 'clamp(2.4rem, 5.2vw, 3.8rem)', fontWeight: '800', letterSpacing: '-0.045em', lineHeight: '1.06', marginBottom: '20px' }}>
-                Connecting <span className="op-grad-text">talent</span> with <span className="op-grad-text">opportunity</span>
+                Software, consulting &amp; <span className="op-grad-text">specialist talent</span>
               </h1>
-              <p style={{ fontSize: 'clamp(1.05rem, 2vw, 1.25rem)', color: 'var(--text-secondary)', lineHeight: '1.6', maxWidth: '520px', marginBottom: '28px' }}>
-                OpelSoft is a specialist talent and staffing platform. We help exceptional people find roles with the teams building advanced technology, and help those teams hire the rare skills they need.
+              <p style={{ fontSize: 'clamp(1.05rem, 2vw, 1.25rem)', color: 'var(--text-secondary)', lineHeight: '1.6', maxWidth: '540px', marginBottom: '28px' }}>
+                OpelSoft is a private equity consortium firm that <strong style={{ color: 'var(--text-primary)' }}>provides <span className="op-grad-text">Software Development &amp; IT Consulting Services to Fortune 500 clients across the US</span></strong>, partnering with employers and delivering exceptional service across every engagement.
               </p>
               <div style={{ display: 'flex', gap: '14px', flexWrap: 'wrap' }}>
                 <Link href="/jobs" className="op-btn op-grad-bg" style={{ padding: '13px 28px', borderRadius: '30px', fontWeight: '700', color: '#fff', textDecoration: 'none', boxShadow: 'var(--shadow-md)' }}>Explore roles</Link>
@@ -63,31 +64,33 @@ export default function AboutUsPage() {
       </section>
 
       {/* STATS */}
-      <section style={{ background: '#0B0B0F', color: '#fff', borderBottom: '1px solid var(--border-color)' }}>
-        <div className="container" style={{ padding: '52px 0' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '24px', textAlign: 'center' }}>
-            {[{ v: 8, s: '+', l: 'Specialisms' }, { v: 20, s: '+', l: 'Industries served' }, { v: 100, s: '%', l: 'Verified employers' }, { v: 24, s: '/7', l: 'Talent sourcing' }].map((m, i) => (
-              <Reveal key={i} delay={(i % 4) + 1}>
-                <div style={{ fontSize: 'clamp(2rem, 4vw, 2.8rem)', fontWeight: '800', letterSpacing: '-0.03em' }}><CountUp value={m.v} suffix={m.s} /></div>
-                <div style={{ fontSize: '0.82rem', color: 'rgba(255,255,255,0.55)', marginTop: '6px', textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: '600' }}>{m.l}</div>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
+      <StatsBand tone="dark" decor={<Decor variant="c" tone="dark" />} items={[
+        { v: 15, s: '+', label: 'Years of experience', icon: <><circle cx="12" cy="12" r="10" /><polyline points="12 6 12 12 16 14" /></> },
+        { v: 20, s: '+', label: 'Industries served', icon: <><rect x="3" y="3" width="7" height="7" /><rect x="14" y="3" width="7" height="7" /><rect x="14" y="14" width="7" height="7" /><rect x="3" y="14" width="7" height="7" /></> },
+        { v: 500, s: '+', label: 'Projects delivered', icon: <><path d="M9 11l3 3L22 4" /><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11" /></> },
+        { v: 100, s: '%', label: 'Client commitment', icon: <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /> },
+      ]} />
 
       {/* MISSION */}
       <section className="section-light section-padding" style={{ background: '#fff', borderBottom: '1px solid var(--border-color)' }}>
         <div className="container" style={{ maxWidth: '820px', textAlign: 'center' }}>
           <Reveal>
             <div style={{ fontSize: '0.78rem', textTransform: 'uppercase', letterSpacing: '0.2em', color: 'var(--op-indigo)', fontWeight: '700', marginBottom: '14px' }}>Our Mission</div>
-            <h2 style={{ fontSize: 'clamp(1.9rem, 4vw, 2.7rem)', fontWeight: '800', letterSpacing: '-0.03em', marginBottom: '20px' }}>Make great careers in advanced tech accessible</h2>
+            <h2 style={{ fontSize: 'clamp(1.9rem, 4vw, 2.7rem)', fontWeight: '800', letterSpacing: '-0.03em', marginBottom: '20px' }}>What drives us</h2>
             <p style={{ color: 'var(--text-secondary)', fontSize: '1.08rem', lineHeight: '1.8', marginBottom: '18px' }}>
-              The most important work of the next decade is being built by small, ambitious technical teams, yet the best people and the best opportunities rarely find each other easily.
+              We believe OpelSoft is an exceptional company, a company of people proud of the work they do and the solutions they provide.
             </p>
-            <p style={{ color: 'var(--text-secondary)', fontSize: '1.08rem', lineHeight: '1.8' }}>
-              OpelSoft exists to close that gap, pairing deep specialism with a clean, human hiring experience. Whether you are taking the next step in your career or scaling a technical team, we make the process seamless.
+            <p style={{ color: 'var(--text-secondary)', fontSize: '1.08rem', lineHeight: '1.8', marginBottom: '18px' }}>
+              By understanding our specialty industries, following a disciplined process to identify quality candidates, and partnering with employers to understand their core business and hiring needs, we deliver exceptional service, and great results for everyone involved.
             </p>
+            <p style={{ color: 'var(--text-light)', fontSize: '0.96rem', lineHeight: '1.7' }}>
+              Headquartered in Edison, NJ, with an offshore delivery center in Hyderabad, India, serving multinational customers.
+            </p>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', justifyContent: 'center', marginTop: '28px' }}>
+              {['Banking', 'Financial Services', 'Healthcare', 'Human Resources', 'Telecom', 'Insurance', 'Hospitality', 'Retail & Distribution', 'Manufacturing'].map((v) => (
+                <span key={v} style={{ fontSize: '0.82rem', fontWeight: '600', color: 'var(--op-indigo)', background: 'rgba(79,70,229,0.08)', border: '1px solid rgba(79,70,229,0.16)', borderRadius: '20px', padding: '6px 14px' }}>{v}</span>
+              ))}
+            </div>
           </Reveal>
         </div>
       </section>
@@ -96,8 +99,8 @@ export default function AboutUsPage() {
       <section className="section-light section-padding">
         <div className="container">
           <Reveal style={{ textAlign: 'center', marginBottom: '48px' }}>
-            <div style={{ fontSize: '0.78rem', textTransform: 'uppercase', letterSpacing: '0.2em', color: 'var(--op-indigo)', fontWeight: '700', marginBottom: '14px' }}>Areas We Specialise In</div>
-            <h2 style={{ fontSize: 'clamp(2rem, 4vw, 2.8rem)', fontWeight: '800', letterSpacing: '-0.03em' }}>The fields we know best</h2>
+            <div style={{ fontSize: '0.78rem', textTransform: 'uppercase', letterSpacing: '0.2em', color: 'var(--op-indigo)', fontWeight: '700', marginBottom: '14px' }}>Specialties</div>
+            <h2 style={{ fontSize: 'clamp(2rem, 4vw, 2.8rem)', fontWeight: '800', letterSpacing: '-0.03em' }}>The skills we deliver</h2>
           </Reveal>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '18px' }}>
             {FOCUS_AREAS.map((f, i) => (
@@ -116,8 +119,8 @@ export default function AboutUsPage() {
       <section className="section-light section-padding">
         <div className="container">
           <Reveal style={{ textAlign: 'center', marginBottom: '56px' }}>
-            <div style={{ fontSize: '0.78rem', textTransform: 'uppercase', letterSpacing: '0.2em', color: 'var(--op-indigo)', fontWeight: '700', marginBottom: '14px' }}>What We Do</div>
-            <h2 style={{ fontSize: 'clamp(2rem, 4vw, 2.8rem)', fontWeight: '800', letterSpacing: '-0.03em' }}>Built for both sides of the hire</h2>
+            <div style={{ fontSize: '0.78rem', textTransform: 'uppercase', letterSpacing: '0.2em', color: 'var(--op-indigo)', fontWeight: '700', marginBottom: '14px' }}>Professional Services</div>
+            <h2 style={{ fontSize: 'clamp(2rem, 4vw, 2.8rem)', fontWeight: '800', letterSpacing: '-0.03em' }}>What we do</h2>
           </Reveal>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(290px, 1fr))', gap: '24px' }}>
             {DO.map((c, i) => (
@@ -161,7 +164,7 @@ export default function AboutUsPage() {
             <div className="op-grad-bg" style={{ borderRadius: '28px', padding: 'clamp(40px, 6vw, 64px) 32px', textAlign: 'center', color: '#fff', position: 'relative', overflow: 'hidden', boxShadow: '0 30px 60px -20px rgba(79,70,229,0.5)' }}>
               <div style={{ position: 'absolute', top: '-30%', right: '-10%', width: '360px', height: '360px', background: 'rgba(255,255,255,0.12)', borderRadius: '50%', filter: 'blur(40px)' }} />
               <h2 style={{ fontSize: 'clamp(1.9rem, 4.5vw, 3rem)', fontWeight: '800', letterSpacing: '-0.04em', marginBottom: '14px', position: 'relative' }}>Ready to take the next step?</h2>
-              <p style={{ fontSize: '1.15rem', opacity: 0.92, maxWidth: '520px', margin: '0 auto 34px', lineHeight: '1.6', position: 'relative' }}>Browse roles in AI and robotics, or talk to our team about hiring.</p>
+              <p style={{ fontSize: '1.15rem', opacity: 0.92, maxWidth: '520px', margin: '0 auto 34px', lineHeight: '1.6', position: 'relative' }}>Explore opportunities, or talk to our team about your next project or hire.</p>
               <div style={{ display: 'flex', gap: '14px', justifyContent: 'center', flexWrap: 'wrap', position: 'relative' }}>
                 <Link href="/jobs" className="op-btn" style={{ padding: '14px 30px', borderRadius: '30px', fontSize: '1rem', fontWeight: '700', background: '#fff', color: 'var(--op-indigo)', textDecoration: 'none', boxShadow: 'var(--shadow-md)' }}>Browse Opportunities</Link>
                 <Link href="/contact-us" className="op-btn" style={{ padding: '14px 30px', borderRadius: '30px', fontSize: '1rem', fontWeight: '700', background: 'rgba(255,255,255,0.14)', color: '#fff', border: '1px solid rgba(255,255,255,0.3)', textDecoration: 'none' }}>Talk to us</Link>

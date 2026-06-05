@@ -2,7 +2,7 @@
 
 :root {
   /* Colors - Premium Warm Light Theme ('White Side') */
-  --bg-color: #fafafa;
+  --bg-color: #f6f8fc;
   --bg-secondary: #ffffff;
   --card-bg: #ffffff;
   --card-hover-bg: #f4f4f5;
@@ -27,11 +27,11 @@
   
   /* Fonts - loaded via layout.js */
   --font-primary: var(--font-inter, system-ui, sans-serif);
-  --font-headers: var(--font-inter, system-ui, sans-serif);
+  --font-headers: var(--font-display, var(--font-inter, system-ui, sans-serif));
   --font-mono-stack: var(--font-mono, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace);
   
   /* Layout & Sizing */
-  --header-height: 62px;
+  --header-height: 72px;
   --max-width: 1200px;
   --border-radius-sm: 8px;
   --border-radius-md: 16px;
