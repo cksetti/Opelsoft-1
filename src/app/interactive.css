@@ -192,3 +192,78 @@
 
 /* Hide decorative floating geometry on small screens to keep things tidy */
 @media (max-width: 768px) { .op-decor { display: none; } }
+
+/* ===========================================================================
+   Enterprise services — interactive cards + premium stats band
+   =========================================================================== */
+.svc-card {
+  position: relative;
+  display: block;
+  background: #fff;
+  border: 1px solid var(--border-color);
+  border-radius: 18px;
+  padding: 28px 28px 26px;
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.35s var(--op-ease), box-shadow 0.35s var(--op-ease), border-color 0.35s var(--op-ease);
+}
+.svc-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  background: linear-gradient(135deg, var(--svc, #4F46E5) 0%, transparent 55%);
+  transition: opacity 0.35s var(--op-ease);
+  pointer-events: none;
+}
+.svc-card::after {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; right: 0;
+  height: 3px;
+  background: var(--svc, #4F46E5);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s var(--op-ease);
+}
+.svc-card:hover { transform: translateY(-6px); box-shadow: 0 28px 54px -22px rgba(15, 23, 42, 0.3); border-color: color-mix(in srgb, var(--svc, #4F46E5) 35%, transparent); }
+.svc-card:hover::before { opacity: 0.05; }
+.svc-card:hover::after { transform: scaleX(1); }
+.svc-num {
+  position: absolute; top: 16px; right: 22px;
+  font-size: 2.6rem; font-weight: 800; line-height: 1;
+  color: color-mix(in srgb, var(--svc, #4F46E5) 12%, transparent);
+  font-family: var(--font-mono-stack);
+  transition: color 0.35s var(--op-ease);
+}
+.svc-card:hover .svc-num { color: color-mix(in srgb, var(--svc, #4F46E5) 22%, transparent); }
+.svc-ic {
+  position: relative; z-index: 1;
+  width: 54px; height: 54px; border-radius: 15px;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: color-mix(in srgb, var(--svc, #4F46E5) 12%, transparent);
+  transition: transform 0.35s var(--op-ease);
+}
+.svc-card:hover .svc-ic { transform: scale(1.08) rotate(-5deg); }
+.svc-title { position: relative; z-index: 1; font-size: 1.2rem; font-weight: 700; letter-spacing: -0.02em; margin: 18px 0 9px; }
+.svc-body { position: relative; z-index: 1; color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6; }
+.svc-link {
+  position: relative; z-index: 1;
+  display: inline-flex; align-items: center; gap: 6px;
+  margin-top: 16px; font-weight: 700; font-size: 0.86rem;
+  color: var(--svc, #4F46E5);
+  opacity: 0; transform: translateX(-6px);
+  transition: opacity 0.3s var(--op-ease), transform 0.3s var(--op-ease);
+}
+.svc-card:hover .svc-link { opacity: 1; transform: none; }
+
+/* Premium dark stats band */
+.stat-band { position: relative; overflow: hidden; background: radial-gradient(60% 130% at 50% 0%, rgba(79, 70, 229, 0.28), transparent 60%), #0B0B0F; }
+.stat-row { position: relative; z-index: 1; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+.stat-cell { position: relative; text-align: center; padding: 18px 18px; }
+.stat-cell + .stat-cell::before { content: ''; position: absolute; left: 0; top: 16%; height: 68%; width: 1px; background: linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.16), transparent); }
+.stat-ic { width: 48px; height: 48px; border-radius: 13px; display: inline-flex; align-items: center; justify-content: center; background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.1); margin-bottom: 14px; }
+.stat-num { font-size: clamp(2.1rem, 4vw, 2.9rem); font-weight: 800; letter-spacing: -0.03em; background: linear-gradient(135deg, #a5b4fc, #d8b4fe 55%, #7dd3fc); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+.stat-lbl { font-size: 0.78rem; color: rgba(255, 255, 255, 0.55); margin-top: 8px; text-transform: uppercase; letter-spacing: 0.09em; font-weight: 600; }
+@media (max-width: 640px) { .stat-cell + .stat-cell::before { display: none; } }
