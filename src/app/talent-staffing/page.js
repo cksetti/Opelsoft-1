@@ -7,12 +7,12 @@ export const metadata = {
   title: 'Talent, Staffing & Executive Search',
   description: 'OpelSoft connects organizations with vetted talent across technology, engineering, healthcare, and professional services.',
   alternates: {
-    canonical: 'https://opelsoft.com/talent-staffing',
+    canonical: '/talent-staffing',
   },
   openGraph: {
     title: 'Talent, Staffing & Executive Search | OpelSoft',
     description: 'OpelSoft connects organizations with vetted talent across technology, engineering, healthcare, and professional services.',
-    url: 'https://opelsoft.com/talent-staffing',
+    url: '/talent-staffing',
   }
 };
 

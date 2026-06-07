@@ -17,8 +17,14 @@ const jetbrainsMono = JetBrains_Mono({
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"], variable: "--font-display", display: "swap", });
 
+const getBaseUrl = () => {
+  if (process.env.VERCEL_ENV === 'production') return 'https://opelsoft.com';
+  if (process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL}`;
+  return 'http://localhost:3000';
+};
+
 export const metadata = {
-  metadataBase: new URL('https://opelsoft.com'),
+  metadataBase: new URL(getBaseUrl()),
   title: {
     template: '%s | OpelSoft',
     default: 'OpelSoft | IT Consulting & Talent Solutions',
@@ -27,7 +33,7 @@ export const metadata = {
   keywords: ['IT Consulting', 'Software Development', 'Contract Staffing', 'Bench Sales', 'Application Development', 'OpelSoft LLC', 'New Jersey'],
   openGraph: {
     type: 'website',
-    url: 'https://opelsoft.com',
+    url: '/',
     siteName: 'OpelSoft',
     title: 'OpelSoft | IT Consulting & Talent Solutions',
     description: 'Drive Efficiency with AI-Powered Workforce Solutions. We provide Software Development & IT Consulting Services to Fortune 500 clients.',

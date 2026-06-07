@@ -6,12 +6,12 @@ export const metadata = {
   title: 'Find Jobs',
   description: 'Share your details and our team will match you with the right opportunities, with a response within 1 working day.',
   alternates: {
-    canonical: 'https://opelsoft.com/jobs',
+    canonical: '/jobs',
   },
   openGraph: {
     title: 'Find Jobs | OpelSoft',
     description: 'Share your details and our team will match you with the right opportunities.',
-    url: 'https://opelsoft.com/jobs',
+    url: '/jobs',
   }
 };
 

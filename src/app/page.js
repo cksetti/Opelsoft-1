@@ -15,7 +15,7 @@ export const revalidate = 30;
 
 export const metadata = {
   alternates: {
-    canonical: 'https://opelsoft.com',
+    canonical: '/',
   },
 };
 
