@@ -4,8 +4,16 @@ import Decor from '@/components/ui/Decor';
 import StatsBand from '@/components/ui/StatsBand';
 
 export const metadata = {
-  title: 'Enterprise Solutions - OpelSoft',
-  description: 'OpelSoft provides Software Development & IT Consulting Services to Fortune 500 clients across the US.',
+  title: 'Enterprise Solutions',
+  description: 'Scale your delivery with our custom application development, CRM implementations, and dedicated managed teams.',
+  alternates: {
+    canonical: 'https://opelsoft.com/enterprise-solutions',
+  },
+  openGraph: {
+    title: 'Enterprise Solutions | OpelSoft',
+    description: 'Scale your delivery with our custom application development, CRM implementations, and dedicated managed teams.',
+    url: 'https://opelsoft.com/enterprise-solutions',
+  }
 };
 
 const SERVICES = [

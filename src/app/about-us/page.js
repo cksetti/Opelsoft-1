@@ -5,7 +5,16 @@ import Decor from '@/components/ui/Decor';
 import StatsBand from '@/components/ui/StatsBand';
 
 export const metadata = {
-  title: 'About OpelSoft - Software Development & IT Consulting', description: 'OpelSoft provides Software Development & IT Consulting Services to Fortune 500 clients across the US, with staffing and consulting across Banking, Healthcare, Telecom, Insurance, Retail and more.',
+  title: 'About Us',
+  description: 'OpelSoft is a private equity consortium firm that provides Software Development & IT Consulting Services to Fortune 500 clients across the US.',
+  alternates: {
+    canonical: 'https://opelsoft.com/about-us',
+  },
+  openGraph: {
+    title: 'About Us | OpelSoft',
+    description: 'OpelSoft is a private equity consortium firm that provides Software Development & IT Consulting Services to Fortune 500 clients across the US.',
+    url: 'https://opelsoft.com/about-us',
+  }
 };
 
 function Icon({ tint, children }) {

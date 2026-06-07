@@ -13,6 +13,12 @@ import FAQAccordion from '@/components/ui/FAQAccordion';
 // remote DB on every navigation (much faster nav; counts refresh every 30s).
 export const revalidate = 30;
 
+export const metadata = {
+  alternates: {
+    canonical: 'https://opelsoft.com',
+  },
+};
+
 async function getHomeData() {
   try {
     const [[jobs], [industries], [[{ jobsCount }]], [[{ usersCount }]], [[{ companiesCount }]]] = await Promise.all([

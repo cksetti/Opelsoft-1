@@ -4,7 +4,16 @@ import CountUp from '@/components/ui/CountUp';
 import GeoDecor from '@/components/ui/GeoDecor';
 
 export const metadata = {
-  title: 'Talent, Staffing & Executive Search, OpelSoft', description: 'OpelSoft connects organizations with vetted talent across technology, engineering, healthcare, and professional services, through contract, direct-hire, and executive search.',
+  title: 'Talent, Staffing & Executive Search',
+  description: 'OpelSoft connects organizations with vetted talent across technology, engineering, healthcare, and professional services.',
+  alternates: {
+    canonical: 'https://opelsoft.com/talent-staffing',
+  },
+  openGraph: {
+    title: 'Talent, Staffing & Executive Search | OpelSoft',
+    description: 'OpelSoft connects organizations with vetted talent across technology, engineering, healthcare, and professional services.',
+    url: 'https://opelsoft.com/talent-staffing',
+  }
 };
 
 function Icon({ tint, children }) {

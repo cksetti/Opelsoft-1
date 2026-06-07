@@ -18,13 +18,50 @@ const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"], variable: "--font-display", display: "swap", });
 
 export const metadata = {
-  title: "OpelSoft, Jobs, Talent & Staffing", description:
-    "OpelSoft connects candidates and employers, find jobs, build your profile, apply, and hire across every industry.", };
+  metadataBase: new URL('https://opelsoft.com'),
+  title: {
+    template: '%s | OpelSoft',
+    default: 'OpelSoft | IT Consulting & Talent Solutions',
+  },
+  description: 'OpelSoft provides Software Development, IT Consulting Services, Contract Staffing, Direct Placements, and Bench Sales to Fortune 500 clients across the US.',
+  keywords: ['IT Consulting', 'Software Development', 'Contract Staffing', 'Bench Sales', 'Application Development', 'OpelSoft LLC', 'New Jersey'],
+  openGraph: {
+    type: 'website',
+    url: 'https://opelsoft.com',
+    siteName: 'OpelSoft',
+    title: 'OpelSoft | IT Consulting & Talent Solutions',
+    description: 'Drive Efficiency with AI-Powered Workforce Solutions. We provide Software Development & IT Consulting Services to Fortune 500 clients.',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'OpelSoft | IT Consulting & Talent Solutions',
+    description: 'Drive Efficiency with AI-Powered Workforce Solutions.',
+  },
+};
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable} ${spaceGrotesk.variable}`} suppressHydrationWarning>
       <body className={inter.className} suppressHydrationWarning>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              "name": "OpelSoft LLC",
+              "url": "https://opelsoft.com",
+              "logo": "https://opelsoft.com/logo.svg",
+              "description": "OpelSoft provides Software Development & IT Consulting Services to Fortune 500 clients across the US.",
+              "address": {
+                "@type": "PostalAddress",
+                "addressLocality": "Edison",
+                "addressRegion": "NJ",
+                "addressCountry": "US"
+              }
+            })
+          }}
+        />
         <Preloader />
         <Header />
         <main style={{ flex: 1, display: "flex", flexDirection: "column" }}>
