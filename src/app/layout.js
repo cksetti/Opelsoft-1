@@ -37,20 +37,11 @@ export const metadata = {
     siteName: 'OpelSoft',
     title: 'OpelSoft | IT Consulting & Talent Solutions',
     description: 'Drive Efficiency with AI-Powered Workforce Solutions. IT Consulting & Development for Fortune 500s.',
-    images: [
-      {
-        url: '/og-image.png',
-        width: 1200,
-        height: 630,
-        alt: 'OpelSoft - IT Consulting & Talent Solutions',
-      },
-    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'OpelSoft | IT Consulting & Talent Solutions',
     description: 'Drive Efficiency with AI-Powered Workforce Solutions. IT Consulting & Development for Fortune 500s.',
-    images: ['/og-image.png'],
   },
 };
 
