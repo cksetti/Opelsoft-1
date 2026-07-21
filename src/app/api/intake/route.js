@@ -6,7 +6,7 @@ export const dynamic = 'force-dynamic';
 
 
 const EXPERIENCE = Array.from({ length: 20 }, (_, i) => `${i + 1}+ years`);
-const RECIPIENT = process.env.INTAKE_TO || 'deekshith@gmail.com';
+const RECIPIENT = process.env.INTAKE_TO;
 
 const esc = (s) => String(s).replace(/[<>&]/g, (c) => ({ '<': '&lt;', '>': '&gt;', '&': '&amp;' }[c]));
 
@@ -54,8 +54,8 @@ export async function POST(req) {
     console.error('Intake DB store failed:', e.message);
   }
 
-  if (!isMailConfigured()) {
-    console.warn('Candidate intake received but email is not configured (SMTP_* env vars missing).');
+  if (!isMailConfigured() || !RECIPIENT) {
+    console.warn('Candidate intake received but email is not configured (MS_*/INTAKE_TO env vars missing).');
     return Response.json({ success: true, mailed: false });
   }
 

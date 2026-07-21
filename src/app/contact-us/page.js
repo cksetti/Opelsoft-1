@@ -13,16 +13,31 @@ export default function ContactUsPage() {
   const [message, setMessage] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [sending, setSending] = useState(false);
+  const [error, setError] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setSending(true);
-    setTimeout(() => {
-      setSending(false);
+    setError('');
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, subject, message }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || !data.success) {
+        setError(data.message || 'Something went wrong. Please try again.');
+        return;
+      }
       setSubmitted(true);
       setName(''); setEmail(''); setSubject(''); setMessage('');
       setTimeout(() => setSubmitted(false), 3500);
-    }, 900);
+    } catch {
+      setError('Something went wrong. Please try again.');
+    } finally {
+      setSending(false);
+    }
   };
 
   return (
@@ -63,6 +78,11 @@ export default function ContactUsPage() {
             {submitted && (
               <div className="status-alert alert-success" style={{ marginBottom: '20px' }}>
                 Your message has been sent! Our team will be in touch shortly.
+              </div>
+            )}
+            {error && (
+              <div className="status-alert alert-danger" style={{ marginBottom: '20px' }}>
+                {error}
               </div>
             )}
             <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
