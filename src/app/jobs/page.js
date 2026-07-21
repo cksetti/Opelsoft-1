@@ -1,4 +1,3 @@
-import Script from 'next/script';
 import JobIntakeForm from '@/components/JobIntakeForm';
 import Decor from '@/components/ui/Decor';
 import Reveal from '@/components/ui/Reveal';
@@ -61,49 +60,14 @@ export default function JobsPage() {
               </div>
             </Reveal>
 
-            {/* RIGHT - live job listings */}
+            {/* RIGHT - form */}
             <Reveal delay={2}>
-              <h2 style={{ fontSize: 'clamp(1.6rem, 3vw, 2.1rem)', fontWeight: '800', letterSpacing: '-0.03em', marginBottom: '20px' }}>
-                Open positions
-              </h2>
-              {/*
-                Widget mount. data-site is intentionally set on both this container
-                and the widget Script: the widget renders with the current build today
-                and upgrades to in-place rendering here once its container support ships.
-              */}
-              <div data-staffingos-jobs data-site="opelsoft"></div>
+              <JobIntakeForm />
             </Reveal>
 
           </div>
         </div>
       </section>
-
-      {/* Lead capture - for candidates without a matching role */}
-      <section style={{ padding: '72px 0 80px' }}>
-        <div className="container">
-          <Reveal>
-            <h2 style={{ fontSize: 'clamp(1.6rem, 3vw, 2.1rem)', fontWeight: '800', letterSpacing: '-0.03em', marginBottom: '8px', textAlign: 'center' }}>
-              Don&apos;t see a role that fits? Send us your details.
-            </h2>
-            <p style={{ color: 'var(--text-secondary)', fontSize: '1.05rem', lineHeight: '1.6', textAlign: 'center', maxWidth: '560px', margin: '0 auto 32px' }}>
-              Share a few details and our recruiters will reach out within 1 working day.
-            </p>
-            <div style={{ maxWidth: '560px', margin: '0 auto' }}>
-              <JobIntakeForm />
-            </div>
-          </Reveal>
-        </div>
-      </section>
-
-      {/*
-        Load the listings widget once, on this route only. data-site matches the
-        mount container above; see the note there on why it appears in both places.
-      */}
-      <Script
-        src={`${process.env.NEXT_PUBLIC_STAFFINGOS_ORIGIN}/widget.js`}
-        data-site="opelsoft"
-        strategy="afterInteractive"
-      />
     </div>
   );
 }
