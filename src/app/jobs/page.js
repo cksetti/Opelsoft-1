@@ -1,16 +1,16 @@
-import JobIntakeForm from '@/components/JobIntakeForm';
+import StaffingosJobs from '@/components/StaffingosJobs';
 import Decor from '@/components/ui/Decor';
 import Reveal from '@/components/ui/Reveal';
 
 export const metadata = {
   title: 'Find Jobs',
-  description: 'Share your details and our team will match you with the right opportunities, with a response within 1 working day.',
+  description: 'Browse open roles at OpelSoft and apply in minutes. Our recruiters review every application and respond within 1 working day.',
   alternates: {
     canonical: '/jobs',
   },
   openGraph: {
     title: 'Find Jobs | OpelSoft',
-    description: 'Share your details and our team will match you with the right opportunities.',
+    description: 'Browse open roles at OpelSoft and apply in minutes.',
     url: '/jobs',
   }
 };
@@ -36,11 +36,11 @@ export default function JobsPage() {
               <h1 style={{ fontSize: 'clamp(2.2rem, 4.6vw, 3.4rem)', fontWeight: '800', letterSpacing: '-0.04em', lineHeight: '1.06', marginBottom: '18px' }}>
                 Find your next role with <span className="op-grad-text">OpelSoft</span>
               </h1>
-              <p style={{ color: 'var(--text-secondary)', fontSize: '1.12rem', lineHeight: '1.6', maxWidth: '520px', marginBottom: '32px' }}>
-                Share a few details and our recruiters will match you with the right opportunities, then get in touch within 1 working day.
+              <p style={{ color: 'var(--text-secondary)', fontSize: '1.12rem', lineHeight: '1.6', maxWidth: '760px', marginBottom: '32px' }}>
+                Browse our open roles below and apply in minutes. Our recruiters review every application and get in touch within 1 working day.
               </p>
 
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '18px', maxWidth: '520px' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(440px, 1fr))', gap: '20px 44px' }}>
                 {BENEFITS.map((b) => (
                   <div key={b.title} style={{ display: 'flex', gap: '15px', alignItems: 'flex-start' }}>
                     <span className="op-icon" style={{ flexShrink: 0, width: '46px', height: '46px', borderRadius: '13px', background: `${b.tint}16` }}>
@@ -60,12 +60,20 @@ export default function JobsPage() {
               </div>
             </Reveal>
 
-            {/* RIGHT - form */}
-            <Reveal delay={2}>
-              <JobIntakeForm />
-            </Reveal>
 
           </div>
+        </div>
+      </section>
+
+      {/* Live job listings from the recruiting dashboard */}
+      <section style={{ padding: '72px 0 80px' }}>
+        <div className="container">
+          <Reveal>
+            <h2 style={{ fontSize: 'clamp(1.6rem, 3vw, 2.1rem)', fontWeight: '800', letterSpacing: '-0.03em', marginBottom: '20px' }}>
+              Open positions
+            </h2>
+            <StaffingosJobs />
+          </Reveal>
         </div>
       </section>
     </div>
